@@ -20,11 +20,11 @@ likes = db.Table(
 follows = db.Table(
     'follows',
     db.Column(
-        "user_id", db.Integer, db.ForeignKey('users.id'),
+        "following_userId", db.Integer, db.ForeignKey('users.id'),
         nullable=False
     ),
     db.Column(
-        'artist_id', db.Integer, db.ForeignKey('users.id'),
+        'followers_userId', db.Integer, db.ForeignKey('users.id'),
         nullable=False
     )
 )
@@ -47,19 +47,12 @@ class User(db.Model, UserMixin):
 
 
 # --------------------------------------------------------------------
-    song_admin = db.relationship('Song', back_populates='admin')
+    song_artist = db.relationship('Song', back_populates='artist')
     comments = db.relationship('Comment', back_populates='users')
     playlists = db.relationship('Playlist', back_populates='users')
     songs = db.relationship(
         'Song', secondary=likes, back_populates='users', lazy='dynamic'
     )
-    artists = db.relationship(
-        'User', secondary=follows, back_populates='users', lazy='dynamic'
-    )
-    users = db.relationship(
-        'User', secondary=follows, back_populates='artists', lazy='dynamic'
-    )
-
 
     @property
     def password(self):
@@ -85,8 +78,6 @@ class Song(db.Model):
     __tablename__ = 'songs'
 
     id = db.Column(db.Integer, primary_key=True)
-    admin_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'), nullable=False, )
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255))
     image_url = db.Column(db.String(255))
@@ -101,9 +92,7 @@ class Song(db.Model):
     updated_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow
     )
-
-    admin = db.relationship('User', back_populates='song_admin')
-    artist = db.relationship('Artist', back_populates='songs')
+    artist = db.relationship('User', back_populates='song_artist')
     genre = db.relationship('Genre', back_populates='songs')
     comments = db.relationship('Comment', back_populates='songs')
     playlists = db.relationship('Playlist', back_populates='songs')
@@ -115,7 +104,6 @@ class Song(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "admin_id": self.admin_id,
             "title": self.title,
             "description": self.description,
             "image_url": self.image_url,

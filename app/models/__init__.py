@@ -1,2 +1,2 @@
 from .db import db
-from .user import User, Song, Artist, Genre, Comment, Playlist
+from .user import User, Song, Genre, Comment, Playlist
