@@ -56,7 +56,6 @@ class User(db.Model, UserMixin):
     artists = db.relationship(
         'User', secondary=follows, back_populates='users', lazy='dynamic'
     )
-    
     users = db.relationship(
         'User', secondary=follows, back_populates='artists', lazy='dynamic'
     )
@@ -196,4 +195,3 @@ class Playlist(db.Model):
             "song_id": self.song_id,
         }
 
-        
