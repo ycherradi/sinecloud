@@ -24,7 +24,7 @@ follows = db.Table(
         nullable=False
     ),
     db.Column(
-        'artist_id', db.Integer, db.ForeignKey('artists.id'),
+        'artist_id', db.Integer, db.ForeignKey('users.id'),
         nullable=False
     )
 )
@@ -54,8 +54,13 @@ class User(db.Model, UserMixin):
         'Song', secondary=likes, back_populates='users', lazy='dynamic'
     )
     artists = db.relationship(
-        'Artist', secondary=follows, back_populates='users', lazy='dynamic'
+        'User', secondary=follows, back_populates='users', lazy='dynamic'
     )
+    
+    users = db.relationship(
+        'User', secondary=follows, back_populates='artists', lazy='dynamic'
+    )
+
 
     @property
     def password(self):
@@ -88,7 +93,7 @@ class Song(db.Model):
     image_url = db.Column(db.String(255))
     audio_file = db.Column(db.String(255))
     artist_id = db.Column(db.Integer, db.ForeignKey(
-        'artists.id'), nullable=False, )
+        'users.id'), nullable=False, )
     genre_id = db.Column(db.Integer, db.ForeignKey(
         'genres.id'), nullable=False, )
     created_at = db.Column(
@@ -118,28 +123,6 @@ class Song(db.Model):
             "audio_file": self.audio_file,
             "artist_id": self.artist_id,
             "genre_id": self.genre_id,
-        }
-
-
-class Artist(db.Model):
-    __tablename__ = 'artists'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40), nullable=False, unique=True)
-    created_at = db.Column(
-        db.DateTime, nullable=False, default=datetime.utcnow
-    )
-    updated_at = db.Column(
-        db.DateTime, nullable=False, default=datetime.utcnow
-    )
-    songs = db.relationship('Song', back_populates='artist')
-    users = db.relationship(
-        'User', secondary=follows, back_populates='artists', lazy='dynamic'
-    )
-
-    def to_dict(self):
-        return {
-            "name": self.name,
         }
 
 
