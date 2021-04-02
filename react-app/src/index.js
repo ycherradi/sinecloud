@@ -9,6 +9,7 @@ import configureStore from './store';
 const store = configureStore();
 
 function Root() {
+    
     return (
         <Provider store={store}>
             <BrowserRouter>
@@ -17,9 +18,11 @@ function Root() {
         </Provider>
     );
 }
+
 ReactDOM.render(
     <React.StrictMode>
         <Root />
     </React.StrictMode>,
     document.getElementById('root')
 );
+

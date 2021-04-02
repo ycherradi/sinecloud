@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import "./SignUpForm.css";
 import * as sessionActions from "../../../store/session";
 import { useDispatch } from "react-redux";
-import { fetchUserServers } from "../../../store/userInfo";
 
 import { usePasswordValidation } from "./usePasswordValitation";
 
@@ -16,7 +15,7 @@ const SignUpForm = ({
 }) => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const [username, setUsername] = useState("");
+  const [artistName, setArtistName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -30,12 +29,12 @@ const SignUpForm = ({
     setImageLoading(true);
 
     const formData1 = new FormData();
-    formData1.append("username", username);
+    formData1.append("artist_name", artistName);
     formData1.append("email", email);
 
     formData1.append("password", password);
 
-    formData1.append("image", image);
+    formData1.append("profile_URL", image);
     console.log(formData1);
 
     const user = await dispatch(sessionActions.signup(formData1));
@@ -44,9 +43,8 @@ const SignUpForm = ({
       if (!user.payload.errors) {
         setImageLoading(false);
         setAuthenticated(true);
-        dispatch(fetchUserServers(user.payload.id));
 
-        return history.push("/discover");
+        return history.push("/");
       } else {
         setErrors(user.payload.errors);
       }
@@ -65,8 +63,8 @@ const SignUpForm = ({
     openModalLogin();
   };
 
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
+  const updateArtistname = (e) => {
+    setArtistName(e.target.value);
   };
 
   const updateEmail = (e) => {
@@ -106,12 +104,12 @@ const SignUpForm = ({
             ))}
           </div>
           <div className="SignUpModalInputContainer">
-            <label>User Name</label>
+            <label>Artist Name</label>
             <input
               type="text"
-              name="username"
-              onChange={updateUsername}
-              value={username}
+              name="artist_name"
+              onChange={updateArtistname}
+              value={artistName}
             ></input>
           </div>
           <div className="SignUpModalInputContainer">
@@ -156,7 +154,7 @@ const SignUpForm = ({
             {imageLoading && <p>Loading...</p>}
           </div>
           <div className="SignUpModalButtonContainer">
-            <button className="SignUpModalSubmit" type="submit">
+            <button className="SignUpModalSubmit__form" type="submit">
               Sign Up
             </button>
           </div>

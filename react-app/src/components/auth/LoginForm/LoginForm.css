@@ -29,7 +29,6 @@
 }
 
 .LoginModalInputContainer {
-  border-radius: 3px;
   padding: 10px;
   display: flex;
   box-sizing: border-box;
@@ -48,9 +47,9 @@
   border-radius: 3px;
 }
 
-.LoginModalSubmit {
+.LoginModalSubmit__form {
   font: inherit;
-  background-color: #7289da;
+  background-color: #f50;
   border: none;
   color: white;
   padding: 10px;
@@ -58,23 +57,21 @@
   margin-bottom: 5px;
   cursor: pointer;
   border-radius: 5px;
+  width: 310px;
 }
 
-.LoginModalSubmit:hover {
-  background-color: #6476b9;
-}
 
 .not-a-member {
   margin-left: 25%;
   margin-top: 10%;
   border: none;
   background: none;
-  color: #7289da;
+  color: #f50;
   font-size: 16px;
   cursor: pointer;
 }
 
 .not-a-member:hover {
-  color: #6476b9;
+  color: #f50;
   text-decoration: underline;
 }

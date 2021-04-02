@@ -56,10 +56,16 @@ export const logout = () => (dispatch) => {
 
 // authenticate
 export const authenticate = () => async (dispatch) => {
-  const response = await fetch("/api/auth/");
+  const response = await fetch("/api/auth/", {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
   const data = await response.json();
-  return dispatch(setUser(data));
+  dispatch(setUser(data));
+  return data;
 };
+
 
 export const updateExistingUser = (user) => async (dispatch) => {
   console.log(user);

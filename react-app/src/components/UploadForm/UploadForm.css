@@ -1,4 +1,4 @@
-.SignUpModalContainer {
+.UploadModalContainer {
   border-radius: 10px;
   box-sizing: border-box;
   padding: 20px;
@@ -6,24 +6,24 @@
   background-color: #2c2f33;
 }
 
-.SignUpModalFormTitleContainer {
+.UploadModalFormTitleContainer {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
   font-size: 2em;
 }
 
-.SignUpErrorModalContainer {
+.UploadErrorModalContainer {
   border-radius: 10px;
   margin-left: 10px;
   color: #f04747;
 }
 
-.SignUpErrorModalContainer > div {
+.UploadErrorModalContainer > div {
   padding: 5px;
 }
 
-.SignUpModalInputContainer {
+.UploadModalInputContainer {
   border-radius: 3px;
   padding: 10px;
   display: flex;
@@ -31,18 +31,18 @@
   flex-direction: column;
 }
 
-.SignUpModalInputContainer label {
+.UploadModalInputContainer label {
   margin-bottom: 10px;
 }
 
-.SignUpModalInputContainer > input {
+.UploadModalInputContainer > input {
   font: inherit;
   padding: 5px;
   border: 1px solid rgb(170, 170, 170);
   width: 300px;
 }
 
-.SignUpModalSubmit__form {
+.UploadModalSubmit__form {
   font: inherit;
   background-color: #f50;
   border: none;
@@ -54,18 +54,12 @@
   border-radius: 5px;
 }
 
-
-.already-a-member {
-  margin-left: 20%;
-  margin-top: 10%;
-  border: none;
-  background: none;
-  color: #f50;
-  font-size: 16px;
-  cursor: pointer;
+.UploadModalRadioContainer {
+  margin-left: 10px;
 }
 
-.already-a-member:hover {
-  color: #f50;
-  text-decoration: underline;
+.UploadModalRadioContainer > input {
+  margin-top: -1px;
+  vertical-align: middle;
+  margin-left: 80px;
 }

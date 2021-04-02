@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { fetchUserServers } from '../../../store/userInfo';
 import * as sessionActions from '../../../store/session';
 import { useDispatch } from 'react-redux';
 import './LoginForm.css';
@@ -31,9 +30,8 @@ const LoginForm = ({
         if (!user.payload.errors) {
             setIsOpenLogin(false);
             setAuthenticated(true);
-            dispatch(fetchUserServers(user.payload.id));
 
-            return history.push('/discover');
+            return history.push('/');
         } else {
             setErrors(user.payload.errors);
         }
@@ -98,14 +96,14 @@ const LoginForm = ({
                         />
                     </div>
                     <div className="LoginModalButtonContainer">
-                        <button className="LoginModalSubmit" type="submit">
+                        <button className="LoginModalSubmit__form" type="submit">
                             Login
                         </button>
                     </div>
                     <div className="LoginModalButtonContainer">
                         <button
                             onClick={(e) => demoUser(e)}
-                            className="LoginModalSubmit"
+                            className="LoginModalSubmit__form"
                             type="submit"
                         >
                             Demo User

@@ -2,6 +2,7 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from sqlalchemy.dialects.postgresql import JSON
 
 
 likes = db.Table(
@@ -34,7 +35,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
+    artist_name = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_URL = db.Column(db.String(255))
@@ -47,7 +48,7 @@ class User(db.Model, UserMixin):
 
 
 # --------------------------------------------------------------------
-    song_artist = db.relationship('Song', back_populates='artist')
+    song_user = db.relationship('Song', back_populates='user_song')
     comments = db.relationship('Comment', back_populates='users')
     playlists = db.relationship('Playlist', back_populates='users')
     songs = db.relationship(
@@ -68,7 +69,7 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             "id": self.id,
-            "username": self.username,
+            "artist_name": self.artist_name,
             "email": self.email,
             "profile_URL": self.profile_URL
         }
@@ -82,17 +83,18 @@ class Song(db.Model):
     description = db.Column(db.String(255))
     image_url = db.Column(db.String(255))
     audio_file = db.Column(db.String(255))
-    artist_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id'), nullable=False, )
+    artist = db.Column(db.String(255), nullable=False)
     genre_id = db.Column(db.Integer, db.ForeignKey(
         'genres.id'), nullable=False, )
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id'), nullable=False, )
     created_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow
     )
     updated_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow
     )
-    artist = db.relationship('User', back_populates='song_artist')
+    user_song = db.relationship('User', back_populates='song_user')
     genre = db.relationship('Genre', back_populates='songs')
     comments = db.relationship('Comment', back_populates='songs')
     playlists = db.relationship('Playlist', back_populates='songs')
@@ -108,7 +110,7 @@ class Song(db.Model):
             "description": self.description,
             "image_url": self.image_url,
             "audio_file": self.audio_file,
-            "artist_id": self.artist_id,
+            "artist": self.artist,
             "genre_id": self.genre_id,
         }
 
