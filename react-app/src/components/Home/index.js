@@ -5,6 +5,8 @@ import 'react-h5-audio-player/lib/styles.css';
 import * as musicActions from '../../store/song';
 import * as genreActions from '../../store/genre';
 import Songs from '../Songs/index';
+import './Home.css';
+import Footer from '../Footer/index';
 
 
 
@@ -30,13 +32,17 @@ console.log(currentSong)
       <div>
         <Songs setCurrentSong={setCurrentSong} genres={genres}/>
       </div>
-      <AudioPlayer
-        className="audio__player"
-        autoPlay
-        src={`${currentSong}`}
-        onPlay={e => console.log("onPlay")}
-        // other props here
-      />
+      <div>
+        <div>
+        <AudioPlayer
+          className="audio__player"
+          autoPlay
+          src={`${currentSong}`}
+          onPlay={e => console.log("onPlay")}
+          // other props here
+        />
+        </div>
+      </div>
     </>
   )
 }

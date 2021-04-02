@@ -2,8 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 .mainNavBar {
     background-color: #333;
-    width: auto;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
     height: 50px;
+    z-index: 2;
 }
 
 .navbarContainer {
@@ -148,3 +152,20 @@
     width: 50px;
     height: 50px;
 }
+
+.artist_name {
+    color: rgb(192, 189, 189);
+    padding: 10px; 
+}
+
+.artist_name:hover {
+    color: white;
+    padding: 10px; 
+}
+
+a:hover {
+    outline: none;
+    box-shadow: none;
+    text-decoration: none;
+}
+

@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Home from "./components/Home/index";
 import Profile from "./components/Profile/index";
 import Footer from "./components/Footer/index";
+import './index.css';
 
 
 function App() {

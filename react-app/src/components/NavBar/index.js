@@ -91,12 +91,14 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     return (
         <nav className="mainNavBar">
             <div className="navbarContainer">
-                <div className="logo">
-                    <img
-                        src={logo}
-                        alt="logo"
-                    />
+                <NavLink to='/'>
+                    <div className="logo">
+                        <img
+                            src={logo}
+                            alt="logo"
+                        />
                     </div>
+                </NavLink>
                 <div>
                     <button className='libraryButton'>
                         Library
@@ -142,15 +144,20 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
                         </div>) :
                         (<div className="profile__image--container">
                             <div className="label">
-                            <img
-                                className="profile__image"
-                                src={`${user.profile_URL}`}
-                                alt="profile-server"
-                            />
+                                <NavLink to='/profile'>
+                                    <img
+                                        className="profile__image"
+                                        src={`${user.profile_URL}`}
+                                        alt="profile-server"
+                                    />
+                                </NavLink>    
                             </div>
                         </div>
                         )}
                     </div>) : ""}
+                    <NavLink to='/profile'>
+                        <div className='artist_name'>{user?.artist_name} ∇</div>
+                    </NavLink>
                 </div>
                 <div className="LoginSignupLogout">
                     <div>

@@ -49,9 +49,233 @@ function Songs({setCurrentSong, genres}) {
 
   return (
     <div>
-      <h1>Charts: Top Genres</h1>
+      <h1 className="charts">Charts: Top Genres</h1>
       <div className="songs__container">
           <h1>Rock</h1>
+            <div className="genre__container" >
+              <OwlCarousel items={7}  
+                className="owl-carousel owl-theme"  
+                loop  
+                autoWidth
+                nav={true}
+                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                dots={false}
+              >  
+                  {RockSongs?.map((song) => {
+                    return ( 
+                              <div className="item">
+                                <div className="image__container" >
+                                    <div className="image1" >
+                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    </div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                </div>
+                                <div className="title">{song?.title}</div>
+                                <div className="artist">{song?.artist}</div>
+                              </div>
+                            )
+                  })}
+                  </OwlCarousel>
+            </div>      
+        </div>
+      <div className="songs__container">
+          <h1>Pop</h1>
+            <div className="genre__container" >
+              <OwlCarousel items={7}  
+                className="owl-carousel owl-theme"  
+                loop  
+                autoWidth
+                nav={true}
+                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                dots={false}
+              >  
+                  {RockSongs?.map((song) => {
+                    return ( 
+                              <div className="item">
+                                <div className="image__container" >
+                                    <div className="image1" >
+                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    </div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                </div>
+                                <div className="title">{song?.title}</div>
+                                <div className="artist">{song?.artist}</div>
+                              </div>
+                            )
+                  })}
+                  </OwlCarousel>
+            </div>      
+        </div>
+      <div className="songs__container">
+          <h1>Hip Hop</h1>
+            <div className="genre__container" >
+              <OwlCarousel items={7}  
+                className="owl-carousel owl-theme"  
+                loop  
+                autoWidth
+                nav={true}
+                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                dots={false}
+              >  
+                  {RockSongs?.map((song) => {
+                    return ( 
+                              <div className="item">
+                                <div className="image__container" >
+                                    <div className="image1" >
+                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    </div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                </div>
+                                <div className="title">{song?.title}</div>
+                                <div className="artist">{song?.artist}</div>
+                              </div>
+                            )
+                  })}
+                  </OwlCarousel>
+            </div>      
+        </div>
+      <div className="songs__container">
+          <h1>Jazz</h1>
+            <div className="genre__container" >
+              <OwlCarousel items={7}  
+                className="owl-carousel owl-theme"  
+                loop  
+                autoWidth
+                nav={true}
+                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                dots={false}
+              >  
+                  {RockSongs?.map((song) => {
+                    return ( 
+                              <div className="item">
+                                <div className="image__container" >
+                                    <div className="image1" >
+                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    </div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                </div>
+                                <div className="title">{song?.title}</div>
+                                <div className="artist">{song?.artist}</div>
+                              </div>
+                            )
+                  })}
+                  </OwlCarousel>
+            </div>      
+        </div>
+      <div className="songs__container">
+          <h1>Country</h1>
+            <div className="genre__container" >
+              <OwlCarousel items={7}  
+                className="owl-carousel owl-theme"  
+                loop  
+                autoWidth
+                nav={true}
+                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                dots={false}
+              >  
+                  {RockSongs?.map((song) => {
+                    return ( 
+                              <div className="item">
+                                <div className="image__container" >
+                                    <div className="image1" >
+                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    </div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                </div>
+                                <div className="title">{song?.title}</div>
+                                <div className="artist">{song?.artist}</div>
+                              </div>
+                            )
+                  })}
+                  </OwlCarousel>
+            </div>      
+        </div>
+      <div className="songs__container">
+          <h1>Metal</h1>
+            <div className="genre__container" >
+              <OwlCarousel items={7}  
+                className="owl-carousel owl-theme"  
+                loop  
+                autoWidth
+                nav={true}
+                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                dots={false}
+              >  
+                  {RockSongs?.map((song) => {
+                    return ( 
+                              <div className="item">
+                                <div className="image__container" >
+                                    <div className="image1" >
+                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    </div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                </div>
+                                <div className="title">{song?.title}</div>
+                                <div className="artist">{song?.artist}</div>
+                              </div>
+                            )
+                  })}
+                  </OwlCarousel>
+            </div>      
+        </div>
+      <div className="songs__container">
+          <h1>World Music</h1>
+            <div className="genre__container" >
+              <OwlCarousel items={7}  
+                className="owl-carousel owl-theme"  
+                loop  
+                autoWidth
+                nav={true}
+                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                dots={false}
+              >  
+                  {RockSongs?.map((song) => {
+                    return ( 
+                              <div className="item">
+                                <div className="image__container" >
+                                    <div className="image1" >
+                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    </div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                </div>
+                                <div className="title">{song?.title}</div>
+                                <div className="artist">{song?.artist}</div>
+                              </div>
+                            )
+                  })}
+                  </OwlCarousel>
+            </div>      
+        </div>
+      <div className="songs__container">
+          <h1>Reggae</h1>
+            <div className="genre__container" >
+              <OwlCarousel items={7}  
+                className="owl-carousel owl-theme"  
+                loop  
+                autoWidth
+                nav={true}
+                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                dots={false}
+              >  
+                  {RockSongs?.map((song) => {
+                    return ( 
+                              <div className="item">
+                                <div className="image__container" >
+                                    <div className="image1" >
+                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    </div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                </div>
+                                <div className="title">{song?.title}</div>
+                                <div className="artist">{song?.artist}</div>
+                              </div>
+                            )
+                  })}
+                  </OwlCarousel>
+            </div>      
+        </div>
+      <div className="songs__container">
+          <h1>Punk</h1>
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  

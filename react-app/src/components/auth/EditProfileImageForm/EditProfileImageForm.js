@@ -9,7 +9,8 @@ const EditProfileImageForm = ({ closeModalSignUp }) => {
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [imageLoading, setImageLoading] = useState(false);
-  const userId = useSelector((state) => state.session.user.id);
+  const [artistName, setArtistName] = useState("");
+  const userId = useSelector((state) => state?.session.user.id);
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ const EditProfileImageForm = ({ closeModalSignUp }) => {
 
     const formData2 = new FormData();
     formData2.append("id", userId);
+    formData2.append("artist_name", artistName);
     formData2.append("image", image);
     console.log(formData2);
 
@@ -24,6 +26,10 @@ const EditProfileImageForm = ({ closeModalSignUp }) => {
 
     setImageLoading(false);
     closeModalSignUp();
+  };
+
+  const updateArtistname = (e) => {
+    setArtistName(e.target.value);
   };
 
   const updateImage = (e) => {
@@ -39,6 +45,15 @@ const EditProfileImageForm = ({ closeModalSignUp }) => {
           <div className="UpdateModalFormTitle">Update Profile Image</div>
         </div>
         <form onSubmit={onSignUp}>
+          <div className="SignUpModalInputContainer">
+            <label>Artist Name</label>
+            <input
+              type="text"
+              name="artist_name"
+              onChange={updateArtistname}
+              value={artistName}
+            ></input>
+          </div>
           <div className="SignUpModalInputContainer">
             <label htmlFor="image">Upload Image</label>
             <input

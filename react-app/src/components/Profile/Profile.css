@@ -1,0 +1,105 @@
+
+
+.profile__outer-div {
+  padding: 20px;
+  margin-top: 50px;
+  background-color: #2F4562;
+}
+
+.profile__banner-div {
+  display: flex;
+  padding: 20px;
+  
+}
+
+.names__div {
+  width: 200px;
+  padding-left: 20px;
+  color: white;
+}
+
+.profile__image-div > img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+
+.profile__image-div {
+    position: relative;
+    text-align: center;
+}
+
+.profile__image-div > img:hover:after {
+    display: block;
+    opacity: 10%;
+}
+
+.label:after {
+    content: "";
+}
+
+.profile__image-div:hover:after {
+    /* display: inline-block;
+    vertical-align: middle; */
+    /* align-content: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: "Edit";
+    align-content: center;
+    color: white;
+    font-weight: bolder;
+    font-size: 40px;
+    cursor: pointer;
+    background-color: rgba(32, 15, 15, 0.3);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+.profile-navbar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-navbar_links{
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  margin-left: 100px;
+  padding-top: 20px;
+}
+
+.profile-navbar_link, .profile-navbar_link > a {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+  padding-bottom: 10px;
+}
+
+.profile-navbar_link > a:hover {
+  color: #f04747;
+  font-weight: 600;
+  border-bottom: solid 4px #f04747;
+}
+
+.profile-navbar_link > a:focus {
+  color: #f04747;
+  font-weight: 600;
+  border-bottom: solid 4px ;
+}
+
+.profile-navbar_below {
+  border-top: solid 1px gray;
+  height: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
