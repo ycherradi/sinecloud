@@ -4,7 +4,11 @@ import { NavLink } from 'react-router-dom';
 import Modal from "react-modal";
 import './Profile.css';
 import EditProfileImageForm from '../auth/EditProfileImageForm/EditProfileImageForm';
-
+import Uploaded from './Uploaded';
+import Playlist from './Playlist';
+import Likes from './Likes';
+import Following from './Following';
+import Followers from './Followers';
 
 
 const customStyles = {
@@ -38,6 +42,11 @@ function Profile() {
 
 const user = useSelector((state) => state?.session.user)
 const [openSignUpModal, setIsOpenSignUpModal] = useState(false);
+const [openProfileUpload, setOpenProfileUpload] = useState(false);
+const [openProfilePlaylist, setOpenProfilePlaylist] = useState(false);
+const [openProfileLikes, setOpenProfileLikes] = useState(false);
+const [openProfileFollowing, setOpenProfileFollowing] = useState(false);
+const [openProfileFollowers, setOpenProfileFollowers] = useState(false);
 
   function openModalSignUp() {
     setIsOpenSignUpModal(true);
@@ -46,7 +55,42 @@ const [openSignUpModal, setIsOpenSignUpModal] = useState(false);
   function closeModalSignUp() {
     setIsOpenSignUpModal(false);
   }
-
+  
+  const handleProfileUpload = () => {
+    setOpenProfileUpload(true);
+    setOpenProfilePlaylist(false);
+    setOpenProfileLikes(false);
+    setOpenProfileFollowing(false);
+    setOpenProfileFollowers(false);
+  };
+  const handleProfilePlaylist = () => {
+    setOpenProfilePlaylist(true);
+    setOpenProfileUpload(false);
+    setOpenProfileLikes(false);
+    setOpenProfileFollowing(false);
+    setOpenProfileFollowers(false);
+  };
+  const handleProfileLikes = () => {
+    setOpenProfileLikes(true);
+    setOpenProfileUpload(false);
+    setOpenProfilePlaylist(false);
+    setOpenProfileFollowing(false);
+    setOpenProfileFollowers(false);
+  };
+  const handleProfileFollowing = () => {
+    setOpenProfileFollowing(true);
+    setOpenProfileUpload(false);
+    setOpenProfilePlaylist(false);
+    setOpenProfileLikes(false);
+    setOpenProfileFollowers(false);
+  };
+  const handleProfileFollowers = () => {
+    setOpenProfileFollowers(true);
+    setOpenProfileUpload(false);
+    setOpenProfilePlaylist(false);
+    setOpenProfileLikes(false);
+    setOpenProfileFollowing(false);
+  };
 
   return (
     <>
@@ -64,19 +108,19 @@ const [openSignUpModal, setIsOpenSignUpModal] = useState(false);
       <div className='profile-navbar'>
         <div className='profile-navbar_links'>
           <div className='profile-navbar_link'>
-            <NavLink to='/profile' autofocus>Uploaded</NavLink>
+            <button autoFocus className='profile__btn' onClick={handleProfileUpload}>Uploaded</button>
           </div>
           <div className='profile-navbar_link'>
-            <NavLink to='/profile/playlist'>Playlist</NavLink>
+            <button className='profile__btn' onClick={handleProfilePlaylist}>Playlist</button>
           </div>
           <div className='profile-navbar_link'>
-            <NavLink to='/profile/likes'>Likes</NavLink>
+            <button className='profile__btn' onClick={handleProfileLikes}>Likes</button>
           </div>
           <div className='profile-navbar_link'>
-            <NavLink to='/profile/following'>Following</NavLink>
+            <button className='profile__btn' onClick={handleProfileFollowing}>Following</button>
           </div>
           <div className='profile-navbar_link'>
-            <NavLink to='/profile/followers'>Followers</NavLink>
+            <button className='profile__btn' onClick={handleProfileFollowers}>Followers</button>
           </div>
         </div>
         <div></div>
@@ -91,6 +135,11 @@ const [openSignUpModal, setIsOpenSignUpModal] = useState(false);
         >
           <EditProfileImageForm closeModalSignUp={closeModalSignUp} />
       </Modal>
+      {openProfileUpload && <Uploaded />}
+      {openProfilePlaylist && <Playlist/>}
+      {openProfileLikes && <Likes />}
+      {openProfileFollowing && <Following />}
+      {openProfileFollowers && <Followers />}
       </>
 
   )

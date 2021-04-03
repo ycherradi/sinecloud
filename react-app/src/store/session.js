@@ -68,13 +68,12 @@ export const authenticate = () => async (dispatch) => {
 
 
 export const updateExistingUser = (user) => async (dispatch) => {
-  console.log(user);
+ 
   const response = await fetch("/api/auth/edit/", {
     method: "PUT",
     body: user,
   });
   const updatedUser = await response.json();
-  console.log("----------------");
   dispatch(editUser(updatedUser));
 };
 

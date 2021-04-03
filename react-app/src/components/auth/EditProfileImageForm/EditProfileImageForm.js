@@ -20,7 +20,6 @@ const EditProfileImageForm = ({ closeModalSignUp }) => {
     formData2.append("id", userId);
     formData2.append("artist_name", artistName);
     formData2.append("image", image);
-    console.log(formData2);
 
     await dispatch(sessionActions.updateExistingUser(formData2));
 
