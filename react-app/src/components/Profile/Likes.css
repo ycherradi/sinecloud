@@ -1,0 +1,91 @@
+.liked__div--outer {
+  display: flex;
+  padding: 30px;
+  text-align: center;
+  margin-left: 100px;
+  margin-right: 100px;
+
+}
+
+.liked__div--inner {
+  display: flex;
+  flex-wrap: wrap;
+  border-style: none;
+}
+
+.item__liked {
+  padding: 20px;
+  border-style: none;
+  height: 250px;
+}
+
+.user__info {
+  display: flex;
+  border-left: 1px solid gray;
+  padding-left: 20px;
+  width: 700px;
+  height: 1200px;
+}
+
+.following, .followers, .tracks {
+  padding-left: 10px;
+  padding-right: 30px;
+  padding-bottom: 20px;
+  height: 30px;
+}
+
+.tracks > div, .followers > div, .following > div {
+  text-align: left;
+  padding-top: 10px;
+  font-size: 20px;
+}
+
+.followers, .tracks {
+  border-left: 1px solid gray;
+}
+
+
+.liked-1 {
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/like-filled.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border-style: none;
+}
+
+.liked-1:hover {
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/like-filled.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}
+
+.liked-1:active {
+  outline: none;
+  border: none;
+  background: url('../../images/like-filled.png');
+}
+.liked-1:focus {
+  outline: 0;
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/like-filled.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}

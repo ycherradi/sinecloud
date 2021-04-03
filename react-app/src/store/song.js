@@ -97,8 +97,7 @@ export const updateExistingSong = (songId) => async (dispatch) => {
 const initialState = {};
 const songReducer = (state = initialState, action) => {
     switch (action.type) {
-        // case SET_USER:
-        //   return { ...state, server: action.payload };
+
         case ADD_SONG:
             return {...state, [action.newSong.id]: action.newSong};
 

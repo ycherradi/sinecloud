@@ -77,7 +77,6 @@
 }
 
 .profile-navbar_link, .profile__btn {
-  text-decoration: none;
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
@@ -90,7 +89,7 @@
 .profile-navbar_link:hover, .profile__btn:hover {
   color: #f04747;
   font-weight: 600;
-
+  cursor: pointer;
 }
 
 .profile__btn:focus {

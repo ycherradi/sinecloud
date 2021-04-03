@@ -60,6 +60,9 @@
   width: 310px;
 }
 
+.LoginModalSubmit__form:hover {
+    background-color: rgb(247, 155, 110);
+}
 
 .not-a-member {
   margin-left: 25%;

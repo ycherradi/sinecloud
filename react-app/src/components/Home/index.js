@@ -4,6 +4,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import * as musicActions from '../../store/song';
 import * as genreActions from '../../store/genre';
+import * as likeActions from '../../store/likes';
 import Songs from '../Songs/index';
 import './Home.css';
 import Footer from '../Footer/index';
@@ -16,13 +17,20 @@ function Home() {
 const dispatch = useDispatch();
 const genres = useSelector((state) => state?.genre.genres)
 
+
+const songs = useSelector((state) => state?.song.songs);
+const user = useSelector((state) => state?.session.user);
+const likes = useSelector((state) => state?.likes);
+const [currentSong, setCurrentSong] = useState('');
+
 useEffect(() => {
   dispatch(musicActions.findExistingSongs())
   dispatch(genreActions.findAllGenres())
 }, [dispatch])
 
-const songs = useSelector((state) => state?.song.songs)
-const [currentSong, setCurrentSong] = useState('');
+useEffect(() => {
+        dispatch(likeActions.fetchUserLikes(user?.id));
+    }, [dispatch]);
 
 console.log(songs)
 console.log(currentSong)

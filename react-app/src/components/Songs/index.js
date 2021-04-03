@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import * as musicActions from '../../store/song';
 import './Songs.css';
 import * as genreActions from '../../store/genre';
+import * as likeActions from '../../store/likes';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -14,19 +15,20 @@ function Songs({setCurrentSong, genres}) {
   // const genres = useSelector((state) => state?.genre.genres)
   const dispatch = useDispatch();
 
+  const songs = useSelector((state) => state?.song.songs);
+  const user = useSelector((state) => state?.session.user);
+  const likes = useSelector((state) => state?.likes);
+  const ids = {}
+  const likeIds = Object.values(likes).map((el) => ids[el.id] = el.id);
+
   useEffect(() => {
-    dispatch(musicActions.findExistingSongs())
     dispatch(genreActions.findAllGenres())
   }, [dispatch])
 
-  const songs = useSelector((state) => state?.song.songs);
-  // const filteredSongs = [];
-  // const filtered = songs?.map((song, idx) => {
-  //   const genreSongs= songs?.filter((el) => el?.genre_id === idx);
-  //   filteredSongs[idx] = genreSongs;
-  //   return filteredSongs;
-  // })
-  // console.log(filtered)
+  useEffect(() => {
+    dispatch(musicActions.findExistingSongs())
+  }, [dispatch])
+
   const RockSongs = songs?.filter((el) => el?.genre_id === 1);
   const PopSongs = songs?.filter((el) => el?.genre_id === 2);
   const HiphopSongs = songs?.filter((el) => el?.genre_id === 3);
@@ -37,17 +39,23 @@ function Songs({setCurrentSong, genres}) {
   const ReggaeSongs = songs?.filter((el) => el?.genre_id === 8);
   const PunkSongs = songs?.filter((el) => el?.genre_id === 9);
 
-  const handleDragStart = (e) => e.preventDefault();
 
-  const items = [
-    <img src="path-to-img" onDragStart={handleDragStart} />,
-    <img src="path-to-img" onDragStart={handleDragStart} />,
-    <img src="path-to-img" onDragStart={handleDragStart} />,
-  ];
+  const handleAddLike = (songId) => {
+    dispatch(likeActions.addLike(songId, user.id));
+  };
+
+  const handleRemoveLike = (songId) => {
+    dispatch(likeActions.removeLike(songId, user.id));
+  };
+
+  useEffect(() => {
+        dispatch(likeActions.fetchUserLikes(user?.id));
+    }, [dispatch, songs]);
 
 
 
   return (
+
     <div>
       <h1 className="charts">Charts: Top Genres</h1>
       <div className="songs__container">
@@ -67,8 +75,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
@@ -95,8 +105,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
@@ -123,8 +135,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
@@ -151,8 +165,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
@@ -179,8 +195,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
@@ -207,8 +225,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
@@ -235,8 +255,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
@@ -263,8 +285,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
@@ -291,8 +315,10 @@ function Songs({setCurrentSong, genres}) {
                                 <div className="image__container" >
                                     <div className="image1" >
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2"></div>
+                                    <div id={`${song?.audio_file}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    </div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>

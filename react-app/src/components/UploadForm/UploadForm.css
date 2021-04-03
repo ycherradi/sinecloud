@@ -54,6 +54,10 @@
   border-radius: 5px;
 }
 
+.UploadModalSubmit__form:hover {
+    background-color: rgb(247, 155, 110);
+}
+
 .UploadModalRadioContainer {
   margin-left: 10px;
 }

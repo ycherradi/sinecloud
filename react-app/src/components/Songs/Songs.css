@@ -113,3 +113,93 @@ h2 {
   background-size: cover;
   cursor: pointer;
 }
+
+.like {
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: url('../../images/like.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border-style: none;
+}
+
+.like:hover {
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/like-filled.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}
+
+.like:active {
+  outline: none;
+  border: none;
+  background: url('../../images/like-filled.png');
+}
+.like:focus {
+  outline: 0;
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/like-filled.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}
+
+.liked {
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/like-filled.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border-style: none;
+}
+
+.liked:hover {
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/like-filled.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}
+
+.liked:active {
+  outline: none;
+  border: none;
+  background: url('../../images/like-filled.png');
+}
+.liked:focus {
+  outline: 0;
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/like-filled.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}

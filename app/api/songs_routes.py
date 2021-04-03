@@ -138,6 +138,5 @@ def edit_song():
     matched_song.artist = request.form['artist']
     matched_song.audio_file = url_song
     db.session.commit()
-    
     data = matched_song.to_dict()
     return data
