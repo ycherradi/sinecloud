@@ -1,17 +1,29 @@
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
 .liked__div--outer {
   display: flex;
   padding: 30px;
   text-align: center;
   margin-left: 100px;
   margin-right: 100px;
-
+  
 }
 
 .liked__div--inner {
   display: flex;
   flex-wrap: wrap;
   border-style: none;
+  width: 1200px;
 }
+
 
 .item__liked {
   padding: 20px;
@@ -23,8 +35,14 @@
   display: flex;
   border-left: 1px solid gray;
   padding-left: 20px;
-  width: 700px;
-  height: 1200px;
+  width: 600px;
+  height: 300px;
+  right: 0;
+  position:inherit;
+}
+
+.user__info--outer {
+
 }
 
 .following, .followers, .tracks {

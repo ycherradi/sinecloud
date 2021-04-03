@@ -12,6 +12,7 @@
   display: flex;
   flex-wrap: wrap;
   border-style: none;
+  width: 2000px;
 }
 
 .item__uploaded {

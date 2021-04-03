@@ -25,15 +25,17 @@ const [currentSong, setCurrentSong] = useState('');
 
 useEffect(() => {
   dispatch(musicActions.findExistingSongs())
-  dispatch(genreActions.findAllGenres())
+
 }, [dispatch])
+
+// useEffect(() => {
+//   dispatch(genreActions.findAllGenres())
+// }, [dispatch])
 
 useEffect(() => {
         dispatch(likeActions.fetchUserLikes(user?.id));
-    }, [dispatch]);
+    }, [dispatch, songs]);
 
-console.log(songs)
-console.log(currentSong)
 
   return (
     <>

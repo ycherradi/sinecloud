@@ -21,6 +21,14 @@ function Songs({setCurrentSong, genres}) {
   const ids = {}
   const likeIds = Object.values(likes).map((el) => ids[el.id] = el.id);
 
+  const handleAddLike = (songId) => {
+    dispatch(likeActions.addLike(songId, user.id));
+  };
+
+  const handleRemoveLike = (songId) => {
+    dispatch(likeActions.removeLike(songId, user.id));
+  };
+
   useEffect(() => {
     dispatch(genreActions.findAllGenres())
   }, [dispatch])
@@ -28,6 +36,10 @@ function Songs({setCurrentSong, genres}) {
   useEffect(() => {
     dispatch(musicActions.findExistingSongs())
   }, [dispatch])
+
+  // useEffect(() => {
+  //       dispatch(likeActions.fetchUserLikes(user?.id));
+  //   }, [dispatch]);
 
   const RockSongs = songs?.filter((el) => el?.genre_id === 1);
   const PopSongs = songs?.filter((el) => el?.genre_id === 2);
@@ -38,21 +50,6 @@ function Songs({setCurrentSong, genres}) {
   const WorldSongs = songs?.filter((el) => el?.genre_id === 7);
   const ReggaeSongs = songs?.filter((el) => el?.genre_id === 8);
   const PunkSongs = songs?.filter((el) => el?.genre_id === 9);
-
-
-  const handleAddLike = (songId) => {
-    dispatch(likeActions.addLike(songId, user.id));
-  };
-
-  const handleRemoveLike = (songId) => {
-    dispatch(likeActions.removeLike(songId, user.id));
-  };
-
-  useEffect(() => {
-        dispatch(likeActions.fetchUserLikes(user?.id));
-    }, [dispatch, songs]);
-
-
 
   return (
 
