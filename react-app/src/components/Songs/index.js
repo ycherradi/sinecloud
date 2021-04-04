@@ -7,6 +7,7 @@ import * as likeActions from '../../store/likes';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import { useHistory } from "react-router";
 
 
 
@@ -14,7 +15,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 function Songs({setCurrentSong, genres}) {
   // const genres = useSelector((state) => state?.genre.genres)
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const songs = useSelector((state) => state?.song.songs);
   const user = useSelector((state) => state?.session.user);
   const likes = useSelector((state) => state?.likes);
@@ -27,6 +28,11 @@ function Songs({setCurrentSong, genres}) {
 
   const handleRemoveLike = (songId) => {
     dispatch(likeActions.removeLike(songId, user.id));
+  };
+  
+    const onClick = (songId) => {
+        const to = `/songs/${songId}`;
+        history.push(to)
   };
 
   useEffect(() => {
@@ -70,7 +76,7 @@ function Songs({setCurrentSong, genres}) {
                     return ( 
                               <div className="item">
                                 <div className="image__container" >
-                                    <div className="image1" >
+                                    <div className="image1" onClick={() => onClick(song.id)}>
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (user && song.id in ids ? <button id={`${song.id}`} className='liked' onClick={() => handleRemoveLike(song.id)}></button> : <button id={`${song.id}`} className='like' onClick={() => handleAddLike(song.id)}></button>) : ''}
                                     </div>

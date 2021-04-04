@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Home from "./components/Home/index";
 import Profile from "./components/Profile/index";
 import Footer from "./components/Footer/index";
+import SongPage from './components/SongPage/index';
 import './index.css';
 
 
@@ -44,6 +45,9 @@ function App() {
         <Route exact={true} path='/profile' >
           <Profile />
         </Route>
+        <Route path='/songs/:id'>
+            <SongPage />
+          </Route>
       </Switch> 
       <Footer/>
     </>
