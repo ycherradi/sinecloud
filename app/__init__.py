@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 from .models import db, User
+from .api.users_routes import users_routes
 from .api.auth_routes import auth_routes
 from .api.songs_routes import songs_routes
 from .api.genre_routes import genre_routes
@@ -13,6 +14,7 @@ from .config import Config
 
 
 app = Flask(__name__)
+
 
 # Setup login manager
 login = LoginManager(app)
@@ -31,6 +33,7 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 
 
+app.register_blueprint(users_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(songs_routes, url_prefix='/api/songs')
 app.register_blueprint(genre_routes, url_prefix='/api/genres')
@@ -40,11 +43,13 @@ Migrate(app, db)
 # Application Security
 CORS(app)
 
+
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.
 # Therefore, we need to make sure that in production any 
 # request made over http is redirected to https.
 # Well.........
+
 
 @app.before_request
 def https_redirect():

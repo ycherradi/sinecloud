@@ -44,8 +44,6 @@ songs_routes = Blueprint('songs', __name__)
 def add_song():
     url_image = None
     url_song = None
-    print('//////////////////////////////////////')
-    print(request.files)
     if "image" in request.files:
         image = request.files["image"]
         image.filename = get_unique_filename(image.filename)
@@ -73,14 +71,6 @@ def add_song():
         # encodedNumpyData = json.dumps(numpyData, cls=NumpyArrayEncoder)
     form = UploadForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('--------------------------------------')
-    print(request.form['id'])
-    print(request.form['title'])
-    print(request.form['description'])
-    print(url_image)
-    print(url_song)
-    print(request.form['genre'])
-    print(request.form['artist'])
     new_song = Song(
         user_id=request.form['id'],
         title=request.form['title'],
@@ -94,7 +84,6 @@ def add_song():
     db.session.add(new_song)
     db.session.commit()
     data = new_song.to_dict()
-    print('data!!!!!!!!!!!!!!!', data)
     return data
 
 
@@ -103,7 +92,15 @@ def add_song():
 def find_songs():
     songId = request.json
     songs = Song.query.all()
-    return {"songs": [song.to_dict() for song in songs]}
+    users = {}
+    for song in songs:
+        song_dict = song.to_dict()
+        userid = song.user_id
+        user = User.query.get(userid).to_dict() 
+        song_dict['userProfileURL'] = user['profile_URL']
+        song_dict['username'] = user['artist_name']     
+        users[song.id] = song_dict
+    return users
 
 
 @songs_routes.route('/', methods=['DELETE'])

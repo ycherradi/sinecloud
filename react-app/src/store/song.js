@@ -65,6 +65,7 @@ export const addNewSong = (songFormInput) => async (dispatch) => {
 export const findExistingSongs = () => async (dispatch) => {
     const response = await fetch('/api/songs/');
     const songs = await response.json();
+    console.log(songs)
     dispatch(findSongs(songs));
 };
 
@@ -105,8 +106,8 @@ const songReducer = (state = initialState, action) => {
             return action.songs;
 
         case DELETE_SONG:
-            state = {};
-            return state;
+            const newState = {};
+            return newState;
 
         case EDIT_SONG:
             return action.updatedSong;

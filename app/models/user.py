@@ -112,6 +112,7 @@ class Song(db.Model):
             "audio_file": self.audio_file,
             "artist": self.artist,
             "genre_id": self.genre_id,
+            "user_id": self.user_id,
         }
 
 
@@ -130,6 +131,7 @@ class Genre(db.Model):
 
     def to_dict(self):
         return {
+            "id": self.id,
             "name": self.name,
         }
 

@@ -5,17 +5,37 @@ import LogoutButton from '../auth/LogoutButton/index';
 import LoginForm from '../auth/LoginForm/index';
 import SignUpForm from '../auth/SignUpForm/index';
 import Profile from '../Profile/index';
+import * as sessionActions from '../../store/session';
 import UploadForm from '../UploadForm/index';
 import './NavBar.css';
 import { NavLink } from 'react-router-dom';
 import {authenticate} from '../../store/session';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Fade from '@material-ui/core/Fade';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import logo from '../../images/Logo.png';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        '& > *': {
+        margin: theme.spacing(1),
+        },
+    },
+    orange: {
+        color: theme.palette.getContrastText(deepOrange[500]),
+        backgroundColor: deepOrange[500],
+    },
+    purple: {
+        color: theme.palette.getContrastText(deepPurple[500]),
+        backgroundColor: deepPurple[500],
+    },
+}));
 
 const customStyles = {
     overlay: {
@@ -43,14 +63,16 @@ const customStyles = {
 };
 
 
+
+
 Modal.setAppElement('#root');
 
-const NavBar = ({ authenticated, setAuthenticated }) => {
+const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
     const dispatch = useDispatch();
     const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
     const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
     const [modalIsOpenUpload, setIsOpenUpload] = useState(false);
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState('');
     
     const user = useSelector((state) => state?.session.user);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -79,7 +101,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     function closeModalSignUp() {
         setIsOpenSignUp(false);
     }
- 
+
     function openModalUpload() {
         setIsOpenUpload(true);
     }
@@ -87,8 +109,16 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     function closeModalUpload() {
         setIsOpenUpload(false);
     }
+    
+    const classes = useStyles();
+
+    // useEffect(()=>{
+    //     dispatch(sessionActions.authenticate())
+    //     if (Object.keys(user).length > 0) setLoaded(true);
+    // }, [user])
 
     return (
+        loaded &&
         <nav className="mainNavBar">
             <div className="navbarContainer">
                 <NavLink to='/'>
@@ -134,11 +164,11 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
                 </div>
                 <div className="navbarItem">
                     {user ? (<div>
-                        {!user.profile_URL ? (
+                        {!user?.profile_URL ? (
                         <div className="profile__image--container">
                             <div className="label1">
                                 <div>
-                                    {/* {`${user.artist_name[0]}`} */}
+                                    <Avatar className={classes.orange}>{user?.artist_name[0]}</Avatar>
                                 </div>
                             </div>
                         </div>) :
@@ -147,7 +177,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
                                 <NavLink to='/profile'>
                                     <img
                                         className="profile__image"
-                                        src={`${user.profile_URL}`}
+                                        src={`${user?.profile_URL}`}
                                         alt="profile-server"
                                     />
                                 </NavLink>    

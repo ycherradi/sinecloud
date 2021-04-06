@@ -1,8 +1,15 @@
 
 *{
-  max-height: 1800px;
+  max-height: auto;
 }
 
+.home__page {
+  width: 1500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
 
 .audio__player {
   position: fixed;

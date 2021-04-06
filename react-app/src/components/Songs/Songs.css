@@ -67,6 +67,7 @@ h2 {
 
 .title {
   font-size: 20px;
+  cursor: pointer;
 }
 
 .artist {
@@ -94,6 +95,7 @@ h2 {
   left: 0;
   margin-left:auto;
   margin-right:auto;
+  cursor: pointer;
 }
 
 .image2 {
@@ -202,4 +204,24 @@ h2 {
   background-size: contain;
   cursor: pointer;
   border: none;
+}
+
+.song__info {
+  display: flex;
+}
+
+.song__user--info {
+  border: 1px solid gray;
+  margin-top: 10px;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+}
+
+
+.song__user--info  > img{
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
 }

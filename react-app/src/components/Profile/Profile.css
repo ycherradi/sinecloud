@@ -1,14 +1,28 @@
 
+body {
+  background-color: whitesmoke;
+}
+
+.profile__page {
+  width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
 
 .profile__outer-div {
   padding: 20px;
   margin-top: 50px;
-  background-color: #2F4562;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: linear-gradient(to right, #bdc3c7 , #2c3e50);
+  width: 1400px;
 }
 
 .profile__banner-div {
   display: flex;
   padding: 20px;
+
   
 }
 
@@ -29,6 +43,18 @@
 .profile__image-div {
     position: relative;
     text-align: center;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: 5px;
+    font-size: 100px;
+    text-align: center;
+    background-color: #f50;
+    color: whitesmoke;
+}
+
+.profile__image-div > div {
+  margin-top: 20%;
 }
 
 .profile__image-div > img:hover:after {

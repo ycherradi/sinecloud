@@ -10,10 +10,11 @@
 
 .liked__div--outer {
   display: flex;
-  padding: 30px;
+  padding-top: 30px;
   text-align: center;
   margin-left: 100px;
   margin-right: 100px;
+  height: auto;
   
 }
 
@@ -21,7 +22,7 @@
   display: flex;
   flex-wrap: wrap;
   border-style: none;
-  width: 1200px;
+  width: 1000px;
 }
 
 

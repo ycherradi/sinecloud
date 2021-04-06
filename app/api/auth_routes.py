@@ -6,6 +6,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
+
 auth_routes = Blueprint('auth', __name__)
 
 
@@ -115,12 +116,12 @@ def edit_user():
 @auth_routes.route('/likes/', methods=['PUT'])
 def userLikes():
     userId = request.json
-
     likes = User.query.get(userId).songs.all()
     likeList = []
     for like in likes:
-        likeList.append(like.to_dict())
-
+        song = like.to_dict()
+        likeList.append(song['id'])
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!', likeList)
     return jsonify(likeList)
 
 
@@ -132,8 +133,9 @@ def addLike():
     user.songs.append(song)
     song.users.append(user)
     db.session.commit()
-    likes = [song.to_dict() for song in user.songs]
-    return jsonify(likes)
+    likeList = []
+    likes = [likeList.append(song.to_dict()['id']) for song in user.songs]
+    return jsonify(likeList)
 
 
 @auth_routes.route('/likes/', methods=['DELETE'])
@@ -144,5 +146,6 @@ def deleteLike():
     user.songs.remove(song)
     song.users.remove(user)
     db.session.commit()
-    likes = [song.to_dict() for song in user.songs]
-    return jsonify(likes)
+    likeList = []
+    likes = [likeList.append(song.to_dict()['id']) for song in user.songs]
+    return jsonify(likeList)

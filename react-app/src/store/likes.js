@@ -53,13 +53,13 @@ export const removeLike = (songId, userId) => async (dispatch) => {
     return dispatch(findUserLikes(userLikes));
 };
 
-const likesReducer = (state = {}, action) => {
+const likesReducer = (state = [], action) => {
     switch (action.type) {
         case FIND_USER_LIKES:
             return action.userLikes;
         case REMOVE_USER_LIKES:
-            state = {};
-            return state;
+            const newState = []
+            return newState;
         default:
             return state;
     }

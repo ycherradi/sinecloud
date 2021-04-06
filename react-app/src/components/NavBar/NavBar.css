@@ -71,18 +71,18 @@
 }
 
 .label1 {
-    display: flex;
+    /* display: flex;
     border-radius: 50%;
     width: 30px;
     height: 30px;
     font-size: 18px;
     background-color: rgb(5, 113, 221);
     color: white;
-    justify-content: center;
+    justify-content: center; */
 }
 
 .label1 > div {
-    margin-top: 4px;
+    
 }
 
 .MuiIcon-colorAction {

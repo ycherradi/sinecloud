@@ -19,7 +19,6 @@ function App() {
   useEffect(() => {
     (async() => {
       const user = await authenticate();
-      console.log(user)
       if (!user.errors) {
         dispatch(authenticate());
         setAuthenticated(true);
@@ -35,18 +34,19 @@ function App() {
   return (
     <>
       <NavBar
+          loaded={loaded}
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
       />
       <Switch>
         <Route exact={true} path='/'>
-          <Home />
+          <Home loaded={loaded}/>
         </Route>
         <Route exact={true} path='/profile' >
-          <Profile />
+          <Profile loaded={loaded}/>
         </Route>
         <Route path='/songs/:id'>
-            <SongPage />
+            <SongPage loaded={loaded}/>
           </Route>
       </Switch> 
       <Footer/>

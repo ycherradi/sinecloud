@@ -93,11 +93,22 @@ const [openProfileFollowers, setOpenProfileFollowers] = useState(false);
   };
 
   return (
-    <>
+    <div className='profile__page'>
     <div className='profile__outer-div'>
       <div className='profile__banner-div'>
         <div className='profile__image-div' onClick={openModalSignUp}>
-          <img src={`${user?.profile_URL}`}></img>
+          {!user?.profile_URL ? (
+                          <div>
+                              {user?.artist_name[0]}
+                          </div>
+                        ) :
+                      (
+                        <img
+                            className="profile__image"
+                            src={`${user?.profile_URL}`}
+                            alt="profile-server"
+                        />
+                      )}
         </div>
         <div className='names__div'>
           <h1>{user?.artist_name}</h1>
@@ -140,7 +151,7 @@ const [openProfileFollowers, setOpenProfileFollowers] = useState(false);
       {openProfileLikes && <Likes />}
       {openProfileFollowing && <Following />}
       {openProfileFollowers && <Followers />}
-      </>
+      </div>
 
   )
 }

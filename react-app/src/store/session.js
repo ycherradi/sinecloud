@@ -94,6 +94,7 @@ const sessionReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.user = action.updatedUser;
       return newState;
+
     default:
       return state;
   }
