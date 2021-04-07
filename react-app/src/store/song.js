@@ -23,53 +23,27 @@ const editSong = (updatedSong) => ({
 });
 
 
-// check this out
-// const SET_USER = "aws/setImg";
-// const setUser = (server) => ({
-//   type: SET_USER,
-//   payload: server,
-// });
-
-//add a server
+//add a song
 export const addNewSong = (songFormInput) => async (dispatch) => {
-    console.log(songFormInput, 'add song');
-    // const {
-    //   admin_id,
-    //   name,
-    //   description,
-    //   isPublic,
-    //   image,
-    //   serverCategory,
-    // } = serverFormInput;
 
     const response = await fetch(`/api/songs/`, {
         method: 'POST',
         body: songFormInput,
-        // JSON.stringify({
-        //   admin_id,
-        //   name,
-        //   description,
-        //   isPublic,
-        //   image,
-        //   serverCategory,
-        // }),
     });
     const data = await response.json();
-    console.log(data)
     dispatch(addSong(data));
     return data;
 };
 
 
-// Find existing server in database
+// Find existing song in database
 export const findExistingSongs = () => async (dispatch) => {
     const response = await fetch('/api/songs/');
     const songs = await response.json();
-    console.log(songs)
     dispatch(findSongs(songs));
 };
 
-// Delete existing server
+// Delete existing song
 export const deleteExistingSong = (songId) => async (dispatch) => {
     await fetch('/api/songs/', {
         method: 'DELETE',
@@ -81,7 +55,7 @@ export const deleteExistingSong = (songId) => async (dispatch) => {
     dispatch(deleteSong());
 };
 
-// Edit existing server
+// Edit existing song
 export const updateExistingSong = (songId) => async (dispatch) => {
     console.log(songId);
     const response = await fetch('/api/songs/edit/', {

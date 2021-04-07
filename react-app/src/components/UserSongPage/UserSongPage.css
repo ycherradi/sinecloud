@@ -1,0 +1,224 @@
+body {
+  background-color: whitesmoke;
+}
+.song__page {
+  width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
+
+.song__banner {
+  display: flex;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  justify-content: space-between;
+  padding: 20px;
+  background-image: linear-gradient(to right, #bdc3c7 , #2c3e50);
+  width: 1400px;
+}
+
+.playBtn1 {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: url('../../images/playButton.png');
+  background-size: cover;
+  background-position: center;
+  border: none;
+}
+
+.playBtn1:hover {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: url('../../images/hoverPlayButton.png');
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.active1 {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: url('../../images/pauseButton.png');
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.sinecloud__div {
+  font-size: 30px;
+  color: whitesmoke;
+}
+
+.song__genre--info {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.genre__div {
+  font-size: 20px;
+  color:whitesmoke;
+  font-weight: bolder;
+  text-align: right;
+}
+
+.song__banner--spacer {
+  height: 150px;
+}
+
+.tracks__img > img{
+  width: 360px;
+  height: 360px;
+}
+
+.list__spacer {
+  height: 80px;
+}
+
+.song__list {
+
+  width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.oneSong__outer {
+  border-bottom: 1px solid rgb(240, 239, 239);
+  display: flex;
+  justify-content: space-between;
+}
+
+.oneSong__outer:hover {
+  border-bottom: 1px solid rgb(240, 239, 239);
+  display: flex;
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+.oneSong__inner {
+  display: flex;
+}
+
+.song__logo--container {
+  display: flex;
+  top: 0;
+  left: 0;
+}
+
+.song__logo1 {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-left:auto;
+  margin-right:auto;
+  cursor: pointer;
+}
+
+.song__logo2 {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+}
+
+.song__logo2:hover {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  background-image: url('../../images/playButton.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.song__logo1 > img {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
+
+.artist__name {
+  margin-left: 20px;
+  padding-top: 15px;
+  color: gray;
+}
+
+.artist__name:hover {
+  margin-left: 20px;
+  padding-top: 15px;
+  color: rgb(66, 65, 65);
+}
+
+.song_name {
+  padding-top: 15px;
+  padding-left: 5px;
+  color: rgb(66, 65, 65);
+}
+
+.song_name:hover {
+  padding-top: 15px;
+  padding-left: 5px;
+  color: black;
+}
+
+.song_spacer {
+
+}
+
+.additional__controls {
+
+}
+
+.additional__controls > button {
+  margin: 5px;
+  cursor: pointer;
+}
+
+.selected__artist {
+  font-size: 60px;
+  font-weight: bolder;
+  text-align: center;
+  color: whitesmoke;
+}
+
+.selected__title {
+  font-size: 40px;
+  text-align: center;
+  color: whitesmoke;
+}
+
+
+.tracks__circle {
+    display: flex;
+    text-align: center;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    font-size: 80px;
+    background-color: #f50;
+    color: whitesmoke;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.tracks__circle > img {
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 5px;
+}
+
+
+.tracks__circle > div {
+  text-align: center;
+  
+}

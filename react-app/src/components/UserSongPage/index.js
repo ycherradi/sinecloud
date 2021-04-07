@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from "react-redux"
 import * as musicActions from '../../store/song';
-import './SongPage.css';
+import './UserSongPage.css';
 import * as genreActions from '../../store/genre';
 import * as likeActions from '../../store/likes';
 import * as commentActions from '../../store/comments';
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 let audio = {};
 
-function SongPage() {
+function UserSongPage() {
 
   const classes = useStyles();
 
@@ -54,29 +54,28 @@ function SongPage() {
 
 	const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(id));
 	const selectedGenre = genres?.find((genre) => genre.id === selectedSong?.genre_id)
-  const filteredSongs = Object.values(songs).filter((song) => song.artist === selectedSong?.artist)
+  const filteredSongs = Object.values(songs).filter((song) => song.user_id === selectedSong?.user_id)
   const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
-  console.log(selectedGenre)
-
-    
-    const updateComment = (e) => {
-      setComment(e.target.value);
-    };
 
     const play = () => {
       setParams({
       ...options,
-      })
-    
+    })
+      // const button = document.querySelector('.playBtn1')
+      // button.classList.toggle('active1')
     }
 
+    const updateComment = (e) => {
+      setComment(e.target.value);
+    };
+    
     const onClick = (songId) => {
       // e.stopPropagation();
-        const to = `/songs/${songId}`;
+        const to = `/user/songs/${songId}`;
         history.push(to);
         play();
   };
-  
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -88,14 +87,16 @@ function SongPage() {
     setComment('');
   }
 
+  
+  
 
   useEffect(() => {
     dispatch(musicActions.findExistingSongs())
+    dispatch(commentActions.findExistingComments())
   }, [dispatch])
-  
+
   useEffect(() => {
     dispatch(genreActions.findAllGenres())
-    dispatch(commentActions.findExistingComments())
   }, [dispatch])
 
   const audioList1 = [
@@ -518,11 +519,11 @@ const options = {
         </div>)
         })}
 
-        {selectedSong && <ReactJkMusicPlayer 
+        <ReactJkMusicPlayer 
               id='audio-element'
               {...params}
                   
-        />}
+        />
         <div classname='comments__container'>
           <form onSubmit={onSubmit}>
             <div className="CommentsInputContainer">
@@ -542,7 +543,7 @@ const options = {
             {selectedComments.map((comment) => {
               return <div className='comments'>
                 <div className='comment_image'>
-                    { comment?.userProfileURL ? <img src={`${comment?.userProfileURL}`} /> 
+                    {comment?.userProfileURL ? <img src={`${comment?.userProfileURL}`} /> 
                               : <div>
                                     <Avatar className={classes.orange}>{comment?.username[0]}</Avatar>
                                 </div>}
@@ -561,4 +562,4 @@ const options = {
 
 
 
-export default SongPage;
+export default UserSongPage;

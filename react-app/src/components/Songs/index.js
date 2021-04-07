@@ -55,6 +55,11 @@ function Songs({setCurrentSong, loaded}) {
   };
   
     const onClick = (songId) => {
+        const to = `/user/songs/${songId}`;
+        history.push(to)
+  };
+
+    const onClick2 = (songId) => {
         const to = `/songs/${songId}`;
         history.push(to)
   };
@@ -106,7 +111,7 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
@@ -116,10 +121,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>) : ''}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>

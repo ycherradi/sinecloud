@@ -33,10 +33,9 @@ body {
 }
 
 .profile__image-div > img {
-  border-radius: 50%;
+  border-radius: 100%;
   width: 200px;
   height: 200px;
-  margin-top: 5px;
   font-size: 0.9em;
 }
 
@@ -46,7 +45,6 @@ body {
     border-radius: 50%;
     width: 200px;
     height: 200px;
-    margin-top: 5px;
     font-size: 100px;
     text-align: center;
     background-color: #f50;
@@ -67,9 +65,6 @@ body {
 }
 
 .profile__image-div:hover:after {
-    /* display: inline-block;
-    vertical-align: middle; */
-    /* align-content: center; */
     display: flex;
     justify-content: center;
     align-items: center;
