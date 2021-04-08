@@ -3,13 +3,11 @@ import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import "./SignUpForm.css";
 import * as sessionActions from "../../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { usePasswordValidation } from "./usePasswordValitation";
 
 const SignUpForm = ({
-  authenticated,
-  setAuthenticated,
   closeModalSignUp,
   openModalLogin,
 }) => {
@@ -21,6 +19,7 @@ const SignUpForm = ({
   const [repeatPassword, setRepeatPassword] = useState("");
   const [image, setImage] = useState([]);
   const [imageLoading, setImageLoading] = useState(false);
+  const user = useSelector((state) => state.session.user)
 
   const history = useHistory();
 
@@ -42,7 +41,7 @@ const SignUpForm = ({
     if (password === repeatPassword) {
       if (!user.payload.errors) {
         setImageLoading(false);
-        setAuthenticated(true);
+    
 
         return history.push("/");
       } else {
@@ -79,7 +78,7 @@ const SignUpForm = ({
     setRepeatPassword(e.target.value);
   };
 
-  if (authenticated) {
+  if (user) {
     return <Redirect to="/" />;
   }
 

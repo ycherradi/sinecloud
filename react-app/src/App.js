@@ -14,7 +14,7 @@ import './index.css';
 
 function App() {
   const dispatch = useDispatch();
-  const [authenticated, setAuthenticated] = useState(false);
+  // const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function App() {
       const user = await authenticate();
       if (!user.errors) {
         dispatch(authenticate());
-        setAuthenticated(true);
+        // setAuthenticated(true);
       }
       setLoaded(true); 
     })();
@@ -36,12 +36,11 @@ function App() {
     <>
       <NavBar
           loaded={loaded}
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
+      
       />
       <Switch>
         <Route exact={true} path='/'>
-          <Home loaded={loaded}/>
+          <Home loaded={loaded} />
         </Route>
         <Route exact={true} path='/profile' >
           <Profile loaded={loaded}/>

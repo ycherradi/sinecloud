@@ -11,7 +11,7 @@ import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 
 
-function Home({loaded}) {
+function Home({ loaded}) {
 
 const dispatch = useDispatch();
 const genres = useSelector((state) => state?.genre.genres)
@@ -23,7 +23,6 @@ const users = useSelector((state) => state?.users);
 
 useEffect(() => {
   dispatch(musicActions.findExistingSongs())
-  // dispatch(sessionActions.authenticate())
 }, [dispatch])
 
 const [currentSong, setCurrentSong] = useState(null);

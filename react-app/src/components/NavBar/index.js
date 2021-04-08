@@ -67,7 +67,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
+const NavBar = ({ loaded }) => {
     const dispatch = useDispatch();
     const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
     const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
@@ -142,7 +142,7 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                     />
                 </div>
                 <div>
-                    <button className='musicUploadButton' onClick={openModalUpload}>
+                    <button className='musicUploadButton' onClick={user ? (openModalUpload) : (openModalLogin)}>
                         Upload
                     </button>
                 </div>
@@ -154,8 +154,7 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                         contentLabel="Example Modal"
                     >
                         <UploadForm
-                            authenticated={authenticated}
-                            setAuthenticated={setAuthenticated}
+                            
                             closeModalUpload={closeModalUpload}
                             openModalUpload={openModalUpload}
                         />
@@ -184,13 +183,13 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                         </div>
                         )}
                     </div>
-                    <NavLink to='/profile'>
+                    {user ? <NavLink to='/profile'>
                         <div className='artist_name'>{user?.artist_name} ∇</div>
-                    </NavLink>
+                    </NavLink> : ''}
                 </div>
                 <div className="LoginSignupLogout">
                     <div>
-                        {authenticated === true ? (
+                        {user ? (
                             ''
                         ) : (
                             <button
@@ -210,15 +209,14 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                         >
                             <LoginForm
                                 setIsOpenLogin={setIsOpenLogin}
-                                authenticated={authenticated}
-                                setAuthenticated={setAuthenticated}
+                                
                                 openModalSignUp={openModalSignUp}
                                 closeModalLogin={closeModalLogin}
                             />
                         </Modal>
                     </div>
                     <div>
-                        {authenticated === true ? (
+                        {user ? (
                             ''
                         ) : (
                             <button
@@ -232,7 +230,7 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                     <div>
                         <Modal
                             isOpen={
-                                authenticated === true
+                                user
                                     ? false
                                     : modalIsOpenSignUp
                             }
@@ -241,15 +239,14 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                             contentLabel="Example Modal"
                         >
                             <SignUpForm
-                                authenticated={authenticated}
-                                setAuthenticated={setAuthenticated}
+                    
                                 closeModalSignUp={closeModalSignUp}
                                 openModalLogin={openModalLogin}
                             />
                         </Modal>
                     </div>
                     <div>
-                        {authenticated === false ? (
+                        {!user ? (
                                         ''
                                     ) : (
                                         <>
@@ -269,14 +266,14 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                                         >
                                             <MenuItem onClick={handleClose}>
                                                 <div>
-                                                    <NavLink to='/profile' setAuthenticated={setAuthenticated}>
+                                                    <NavLink to='/profile' >
                                                         Profile
                                                     </NavLink>   
                                                 </div>    
                                             </MenuItem>
                                             <MenuItem onClick={handleClose}>
                                                 <div>
-                                                    <LogoutButton setAuthenticated={setAuthenticated} />
+                                                    <LogoutButton />
                                                 </div>    
                                             </MenuItem>
                                         </Menu> 

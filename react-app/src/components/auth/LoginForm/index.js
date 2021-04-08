@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useSelector} from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../../store/session';
@@ -6,8 +7,6 @@ import { useDispatch } from 'react-redux';
 import './LoginForm.css';
 
 const LoginForm = ({
-    authenticated,
-    setAuthenticated,
     setIsOpenLogin,
     openModalSignUp,
     closeModalLogin,
@@ -17,6 +16,7 @@ const LoginForm = ({
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
+    const user = useSelector((state) => state.session.user)
     const onSignUp = (e) => {
         e.preventDefault();
         closeModalLogin();
@@ -29,7 +29,7 @@ const LoginForm = ({
 
         if (!user.payload.errors) {
             setIsOpenLogin(false);
-            setAuthenticated(true);
+        
 
             return history.push('/');
         } else {
@@ -54,8 +54,8 @@ const LoginForm = ({
         setPassword(e.target.value);
     };
 
-    // console.log(authenticated);
-    if (authenticated) {
+
+    if (user) {
         return <Redirect to="/" />;
     }
 

@@ -81,6 +81,7 @@ function SongPage() {
     }
 
     const onClick = (songId) => {
+        audio.togglePlay()
       // e.stopPropagation();
         const to = `/songs/${songId}`;
         history.push(to);
@@ -472,7 +473,7 @@ const options = {
         <div className='song__banner'>
           <div>
               <div className='song__genre--info'>
-                <button className='playBtn1' onClick={audio.togglePlay}></button>
+                <button className='playBtn1' onClick={() => {onClick(selectedSong.id);}}></button>
                 <div>
                   <div className='sinecloud__div'>Genre:</div>
                   <div className='genre__div'>{selectedGenre?.name}</div>

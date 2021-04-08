@@ -62,8 +62,8 @@ export const authenticate = () => async (dispatch) => {
     }
   });
   const data = await response.json();
-  return dispatch(setUser(data));
-  
+  if(!data.errors) dispatch(setUser(data));
+  return
 };
 
 

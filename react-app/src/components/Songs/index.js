@@ -12,6 +12,37 @@ import { useHistory } from "react-router";
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import Modal from 'react-modal';
+import LoginForm from '../auth/LoginForm/index';
+import SignUpForm from '../auth/SignUpForm/index';
+
+const customStyles = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        zIndex: 5,
+    },
+    content: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '10px',
+        padding: '20px',
+        backgroundColor: '#2c2f33',
+        border: 'none',
+    },
+};
+
+
+Modal.setAppElement('#root');
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Songs({setCurrentSong, loaded}) {
+function Songs({ setCurrentSong, loaded}) {
   // const genres = useSelector((state) => state?.genre.genres)
   const dispatch = useDispatch();
   const history = useHistory();
@@ -40,7 +71,36 @@ function Songs({setCurrentSong, loaded}) {
   const likes = useSelector((state) => state?.likes);
   const [likesChanged ,setLikesChanged ] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
+  const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
+  const [modalIsOpenUpload, setIsOpenUpload] = useState(false);
   console.log(songs)
+
+  
+  function openModalLogin() {
+        setIsOpenLogin(true);
+    }
+
+    function openModalSignUp() {
+        setIsOpenSignUp(true);
+    }
+
+    function closeModalLogin() {
+        setIsOpenLogin(false);
+    }
+
+    function closeModalSignUp() {
+        setIsOpenSignUp(false);
+    }
+
+    function openModalUpload() {
+        setIsOpenUpload(true);
+    }
+    
+    function closeModalUpload() {
+        setIsOpenUpload(false);
+    }
+
 
   const handleAddLike = (e, songId) => {
     e.stopPropagation()
@@ -55,6 +115,7 @@ function Songs({setCurrentSong, loaded}) {
   };
   
     const onClick = (songId) => {
+        
         const to = `/user/songs/${songId}`;
         history.push(to)
   };
@@ -63,6 +124,12 @@ function Songs({setCurrentSong, loaded}) {
         const to = `/songs/${songId}`;
         history.push(to)
   };
+
+  // const onClick3 = (songId) => {
+  //     audio.togglePlay()
+  //     // e.stopPropagation();
+  //     setCurrentSong(songId)
+  // };
 
   useEffect(() => {
       dispatch(musicActions.findExistingSongs())
@@ -90,6 +157,8 @@ function Songs({setCurrentSong, loaded}) {
 
   const classes = useStyles();
 
+  
+  
   return (
     loaded &&
     <div>
@@ -109,17 +178,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -147,17 +216,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -185,17 +254,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -223,17 +292,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -261,17 +330,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -299,17 +368,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -337,17 +406,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -375,17 +444,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -413,17 +482,17 @@ function Songs({setCurrentSong, loaded}) {
                     return ( 
                               <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
                                       <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
-                                    <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
+                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
                                     </div>
                                 </div>
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -436,6 +505,38 @@ function Songs({setCurrentSong, loaded}) {
                   </OwlCarousel>
             </div>      
         </div>
+        <div>
+                        <Modal
+                            isOpen={modalIsOpenLogin}
+                            onRequestClose={closeModalLogin}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+                            <LoginForm
+                                setIsOpenLogin={setIsOpenLogin}
+                                openModalSignUp={openModalSignUp}
+                                closeModalLogin={closeModalLogin}
+                            />
+                        </Modal>
+                    </div>
+                    <div>
+                        <Modal
+                            isOpen={
+                                user
+                                    ? false
+                                    : modalIsOpenSignUp
+                            }
+                            onRequestClose={closeModalSignUp}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                        >
+                            <SignUpForm
+                
+                                closeModalSignUp={closeModalSignUp}
+                                openModalLogin={openModalLogin}
+                            />
+                        </Modal>
+                    </div>
     </div>
   )
 }

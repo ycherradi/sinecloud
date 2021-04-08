@@ -70,13 +70,12 @@ function UserSongPage() {
         setTimeout(() => {
             setDeleted(true)
           }, 100);
-
         }
         
-        const play = () => {
-          setParams({
-            ...options,
-          })
+    const play = () => {
+      setParams({
+        ...options,
+      })
       // const button = document.querySelector('.playBtn1')
       // button.classList.toggle('active1')
     }
@@ -86,6 +85,7 @@ function UserSongPage() {
     };
     
     const onClick = (songId) => {
+      audio.togglePlay()
       // e.stopPropagation();
       const to = `/user/songs/${songId}`;
       history.push(to);
@@ -113,6 +113,7 @@ function UserSongPage() {
       dispatch(genreActions.findAllGenres())
     }, [dispatch])
   
+    
 
   const audioList1 = [
   {
@@ -476,7 +477,7 @@ const options = {
         <div className='song__banner'>
           <div>
               <div className='song__genre--info'>
-                <button className='playBtn1' onClick={audio.togglePlay}></button>
+                <button className='playBtn1' onClick={() => {onClick(selectedSong?.id);}}></button>
                 <div>
                   <div className='sinecloud__div'>Genre:</div>
                   <div className='genre__div'>{selectedGenre?.name}</div>
