@@ -22,6 +22,9 @@ def add_comment():
     db.session.add(new_comment)
     db.session.commit()
     data = new_comment.to_dict()
+    user = User.query.get(data['user_id']).to_dict() 
+    data['userProfileURL'] = user['profile_URL']
+    data['username'] = user['artist_name']  
     return data
 
 
@@ -29,7 +32,6 @@ def add_comment():
 @comments_routes.route('/')
 def find_comments():
     allComments = Comment.query.all()
-    print('!!!!!!!!!!!???????????', allComments)
     comments = {}
     for comment in allComments:
         comment_dict = comment.to_dict()
@@ -47,6 +49,7 @@ def delete_comment():
     comment = Comment.query.get(commentId)
     db.session.delete(comment)
     db.session.commit()
+    return comment.to_dict()
 
 
 @comments_routes.route('/', methods=['PUT'])

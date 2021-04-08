@@ -60,3 +60,10 @@
 .input_div {
   margin-right: 100px;
 }
+
+.delete-comment {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-top: 20px;
+}

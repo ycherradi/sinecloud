@@ -79,16 +79,14 @@ function Songs({setCurrentSong, loaded}) {
   }, [likes])
 
   const RockSongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 1))
-  // const RockSongs = Object.values(songs).filter((el) => el?.genre_id === 1);
-  console.log(RockSongs)
-  // const PopSongs = Object.values(songs).filter((el) => el?.genre_id === 2);
-  // const HiphopSongs = Object.values(songs).filter((el) => el?.genre_id === 3);
-  // const JazzSongs = Object.values(songs).filter((el) => el?.genre_id === 4);
-  // const CountrySongs = Object.values(songs).filter((el) => el?.genre_id === 5);
-  // const MetalSongs = Object.values(songs).filter((el) => el?.genre_id === 6);
-  // const WorldSongs = Object.values(songs).filter((el) => el?.genre_id === 7);
-  // const ReggaeSongs = Object.values(songs).filter((el) => el?.genre_id === 8);
-  // const PunkSongs = Object.values(songs).filter((el) => el?.genre_id === 9);
+  const PopSongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 2))
+  const HiphopSongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 3))
+  const JazzSongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 4))
+  const CountrySongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 5))
+  const MetalSongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 6))
+  const WorldSongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 7))
+  const ReggaeSongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 8))
+  const PunkSongs = useSelector((state) => state.song && Object.values(state.song).filter((el) => el.genre_id === 9))
 
   const classes = useStyles();
 
@@ -121,7 +119,7 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -134,8 +132,8 @@ function Songs({setCurrentSong, loaded}) {
                   </OwlCarousel>
             </div>      
         </div>
-      {/* <div className="songs__container">
-          <h1>Pop</h1>
+      <div className="songs__container">
+          {PopSongs.length > 0 ? <h1>Pop</h1>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -145,12 +143,12 @@ function Songs({setCurrentSong, loaded}) {
                 navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
                 dots={false}
               >  
-                  {RockSongs?.map((song) => {
+                  {PopSongs.map((song) => {
                     return ( 
-                              <div className="item">
+                              <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
-                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                      <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
@@ -159,10 +157,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>
@@ -173,7 +171,7 @@ function Songs({setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          <h1>Hip Hop</h1>
+          {HiphopSongs.length > 0 ? <h1>Hip hop</h1>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -183,12 +181,12 @@ function Songs({setCurrentSong, loaded}) {
                 navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
                 dots={false}
               >  
-                  {RockSongs?.map((song) => {
+                  {HiphopSongs.map((song) => {
                     return ( 
-                              <div className="item">
+                              <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
-                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                      <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
@@ -197,10 +195,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>
@@ -211,7 +209,7 @@ function Songs({setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          <h1>Jazz</h1>
+          {JazzSongs.length > 0 ? <h1>Jazz</h1>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -221,12 +219,12 @@ function Songs({setCurrentSong, loaded}) {
                 navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
                 dots={false}
               >  
-                  {RockSongs?.map((song) => {
+                  {JazzSongs.map((song) => {
                     return ( 
-                              <div className="item">
+                              <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
-                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                      <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
@@ -235,10 +233,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>
@@ -249,7 +247,7 @@ function Songs({setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          <h1>Country</h1>
+          {CountrySongs.length > 0 ? <h1>Country</h1>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -259,12 +257,12 @@ function Songs({setCurrentSong, loaded}) {
                 navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
                 dots={false}
               >  
-                  {RockSongs?.map((song) => {
+                  {CountrySongs.map((song) => {
                     return ( 
-                              <div className="item">
+                              <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
-                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                      <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
@@ -273,10 +271,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>
@@ -287,7 +285,7 @@ function Songs({setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          <h1>Metal</h1>
+          {MetalSongs.length > 0 ? <h1>Metal</h1>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -297,12 +295,12 @@ function Songs({setCurrentSong, loaded}) {
                 navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
                 dots={false}
               >  
-                  {RockSongs?.map((song) => {
+                  {MetalSongs.map((song) => {
                     return ( 
-                              <div className="item">
+                              <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
-                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                      <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
@@ -311,10 +309,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>
@@ -325,7 +323,7 @@ function Songs({setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          <h1>World Music</h1>
+          {WorldSongs.length > 0 ? <h1>World Music</h1>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -335,12 +333,12 @@ function Songs({setCurrentSong, loaded}) {
                 navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
                 dots={false}
               >  
-                  {RockSongs?.map((song) => {
+                  {WorldSongs.map((song) => {
                     return ( 
-                              <div className="item">
+                              <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
-                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                      <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
@@ -349,10 +347,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>
@@ -363,7 +361,7 @@ function Songs({setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          <h1>Reggae</h1>
+          {ReggaeSongs.length > 0 ? <h1>Reggae</h1>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -373,12 +371,12 @@ function Songs({setCurrentSong, loaded}) {
                 navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
                 dots={false}
               >  
-                  {RockSongs?.map((song) => {
+                  {ReggaeSongs.map((song) => {
                     return ( 
-                              <div className="item">
+                              <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
-                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                      <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
@@ -387,10 +385,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>
@@ -401,7 +399,7 @@ function Songs({setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          <h1>Punk</h1>
+          {PunkSongs.length > 0 ? <h1>Punk</h1>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -411,12 +409,12 @@ function Songs({setCurrentSong, loaded}) {
                 navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
                 dots={false}
               >  
-                  {RockSongs?.map((song) => {
+                  {PunkSongs.map((song) => {
                     return ( 
-                              <div className="item">
+                              <div key={`${song.id}`} className="item">
                                 <div className="image__container" >
-                                    <div className="image1" onClick={() => onClick(song.id)}>
-                                      <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
+                                    <div className="image1" onClick={() => onClick2(song.id)}>
+                                      <img src={`${song?.image_url}`} alt='song_image' />
                                     {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)} className="image2">
@@ -425,10 +423,10 @@ function Songs({setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {user ? (song?.userProfileURL? <img src={`${song?.userProfileURL}`} /> : <div><Avatar className={classes.orange}>{song?.username[0]}</Avatar></div>) : ''}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={() => onClick(song.id)}/> : <div><Avatar className={classes.orange} onClick={() => onClick(song.id)}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
-                                    <div className="title" onClick={() => onClick(song.id)}>{song?.title}</div>
+                                    <div className="title" >{song?.title}</div>
                                     <div className="artist">{song?.artist}</div>
                                   </div>
                                 </div>
@@ -436,8 +434,8 @@ function Songs({setCurrentSong, loaded}) {
                             )
                   })}
                   </OwlCarousel>
-            </div>       */}
-        {/* </div> */}
+            </div>      
+        </div>
     </div>
   )
 }

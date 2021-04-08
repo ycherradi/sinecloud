@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as musicActions from '../../store/song';
 import * as genreActions from '../../store/genre';
 import * as likeActions from '../../store/likes';
-import * as userActions from '../../store/users';
+import * as sessionActions from '../../store/session';
 import Songs from '../Songs/index';
 import './Home.css';
 import Footer from '../Footer/index';
@@ -23,6 +23,7 @@ const users = useSelector((state) => state?.users);
 
 useEffect(() => {
   dispatch(musicActions.findExistingSongs())
+  // dispatch(sessionActions.authenticate())
 }, [dispatch])
 
 const [currentSong, setCurrentSong] = useState(null);

@@ -50,54 +50,69 @@ function UserSongPage() {
   const [currentSong, setCurrentSong] = useState('');
   const [playing, setPlaying] = useState(false)
   const [comment, setComment] = useState("");
+  const [deleted, setDeleted] = useState(false);
 
-
-	const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(id));
+  
+  
+  
+	const selectedSong = useSelector((state) => state?.song && Object.values(state?.song).find((song) => song?.id === parseInt(id)));
+  console.log(selectedSong)
 	const selectedGenre = genres?.find((genre) => genre.id === selectedSong?.genre_id)
   const filteredSongs = Object.values(songs).filter((song) => song.user_id === selectedSong?.user_id)
   const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
+  
 
-    const play = () => {
-      setParams({
-      ...options,
-    })
+    const onDelete = (e, commentId) => {
+      console.log(commentId)
+        e.preventDefault()
+        dispatch(commentActions.deleteExistingComment(commentId))
+        setDeleted(false)
+        setTimeout(() => {
+            setDeleted(true)
+          }, 100);
+
+        }
+        
+        const play = () => {
+          setParams({
+            ...options,
+          })
       // const button = document.querySelector('.playBtn1')
       // button.classList.toggle('active1')
     }
-
+    
     const updateComment = (e) => {
       setComment(e.target.value);
     };
     
     const onClick = (songId) => {
       // e.stopPropagation();
-        const to = `/user/songs/${songId}`;
-        history.push(to);
+      const to = `/user/songs/${songId}`;
+      history.push(to);
         play();
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-      formData.append('userId', user.id)
+      };
+      
+      const onSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('userId', user.id)
       formData.append("songId", selectedSong.id);
       formData.append("comment", comment);
-
-    await dispatch(commentActions.addNewComment(formData));
-    setComment('');
-  }
-
+      
+      await dispatch(commentActions.addNewComment(formData));
+      setComment('');
+    }
+    
+    
+    useEffect(() => {
+      dispatch(musicActions.findExistingSongs())
+      dispatch(commentActions.findExistingComments())
+    }, [dispatch, deleted])
   
+    useEffect(() => {
+      dispatch(genreActions.findAllGenres())
+    }, [dispatch])
   
-
-  useEffect(() => {
-    dispatch(musicActions.findExistingSongs())
-    dispatch(commentActions.findExistingComments())
-  }, [dispatch])
-
-  useEffect(() => {
-    dispatch(genreActions.findAllGenres())
-  }, [dispatch])
 
   const audioList1 = [
   {
@@ -519,20 +534,20 @@ const options = {
         </div>)
         })}
 
-        <ReactJkMusicPlayer 
+        {selectedSong && <ReactJkMusicPlayer 
               id='audio-element'
               {...params}
                   
-        />
+        />}
         <div classname='comments__container'>
           <form onSubmit={onSubmit}>
             <div className="CommentsInputContainer">
-              <div>{selectedComments.length} Comments</div>
+              <div>{selectedComments.length} Reviews</div>
               <div className='input_div'>
                 <input
                   type="text"
                   name="Comments"
-                  placeholder='Add a public comment...'
+                  placeholder='Add a public review...'
                   onChange={updateComment}
                   value={comment}
                 ></input>
@@ -551,6 +566,9 @@ const options = {
                 <div className='username-comment__container'>
                   <div className='comment_username'>{comment.username}</div>
                   <div className='comment_comment'>{comment.comment}</div>
+                </div>
+                <div>
+                    {user && user?.id === comment?.user_id ? <button className='delete-comment' onClick={(e) => onDelete(e, comment?.id)}>🗑</button>: ''}
                 </div>
               </div>
             })}

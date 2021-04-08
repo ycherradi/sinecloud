@@ -40,7 +40,6 @@ export const addNewComment = (commentFormInput) => async (dispatch) => {
 export const findExistingComments = () => async (dispatch) => {
     const response = await fetch('/api/comments/');
     const comments = await response.json();
-    console.log(comments)
     dispatch(findComments(comments));
 };
 
@@ -80,8 +79,8 @@ const commentReducer = (state = initialState, action) => {
             return action.comments;
 
         case DELETE_COMMENT:
-            const newState = {};
-            return newState;
+            const newState = {}
+            return state;
 
         case EDIT_COMMENT:
             return action.updatedComment;

@@ -112,13 +112,12 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
     
     const classes = useStyles();
 
-    // useEffect(()=>{
+    // useEffect(() => {
     //     dispatch(sessionActions.authenticate())
-    //     if (Object.keys(user).length > 0) setLoaded(true);
-    // }, [user])
+    // }, [dispatch])
 
     return (
-        loaded &&
+        loaded && 
         <nav className="mainNavBar">
             <div className="navbarContainer">
                 <NavLink to='/'>
@@ -163,12 +162,12 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                     </Modal>
                 </div>
                 <div className="navbarItem">
-                    {user ? (<div>
+                    <div>
                         {!user?.profile_URL ? (
                         <div className="profile__image--container">
                             <div className="label1">
                                 <div>
-                                    <Avatar className={classes.orange}>{user?.artist_name[0]}</Avatar>
+                                    <Avatar className={classes.orange}>{user?.artist_name && user?.artist_name[0]}</Avatar>
                                 </div>
                             </div>
                         </div>) :
@@ -184,7 +183,7 @@ const NavBar = ({ authenticated, setAuthenticated, loaded }) => {
                             </div>
                         </div>
                         )}
-                    </div>) : ""}
+                    </div>
                     <NavLink to='/profile'>
                         <div className='artist_name'>{user?.artist_name} ∇</div>
                     </NavLink>

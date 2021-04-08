@@ -46,17 +46,18 @@ function SongPage() {
   const user = useSelector((state) => state?.session.user);
   const likes = useSelector((state) => state?.likes);
   const genres = useSelector((state) => state?.genre.genres);
-  const comments = useSelector((state) => state.comments);
+  // const comments = useSelector((state) => state.comments);
   const [currentSong, setCurrentSong] = useState('');
   const [playing, setPlaying] = useState(false)
   const [comment, setComment] = useState("");
-
+  // const [commentsChanged, setCommentsChanged] = useState(false)
+  const [deleted, setDeleted] = useState(false);
 
 	const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(id));
-	const selectedGenre = genres?.find((genre) => genre.id === selectedSong?.genre_id)
-  const filteredSongs = Object.values(songs).filter((song) => song.artist === selectedSong?.artist)
-  const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
-  console.log(selectedGenre)
+	const selectedGenre = genres?.find((genre) => genre?.id === selectedSong?.genre_id)
+  const filteredSongs = Object.values(songs).filter((song) => song?.artist === selectedSong?.artist)
+  // const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
+  const selectedComments = useSelector((state) => state?.comments && Object.values(state?.comments).filter((comment) => comment?.song_id === selectedSong?.id))
 
     
     const updateComment = (e) => {
@@ -67,7 +68,16 @@ function SongPage() {
       setParams({
       ...options,
       })
-    
+    }
+
+    const onDelete = (e, commentId) => {
+      console.log(commentId)
+        e.preventDefault()
+        dispatch(commentActions.deleteExistingComment(commentId))
+        // setCommentsChanged(true) 
+        setTimeout(() => {
+            setDeleted(true)
+          }, 100);
     }
 
     const onClick = (songId) => {
@@ -86,6 +96,7 @@ function SongPage() {
 
     await dispatch(commentActions.addNewComment(formData));
     setComment('');
+    
   }
 
 
@@ -96,7 +107,8 @@ function SongPage() {
   useEffect(() => {
     dispatch(genreActions.findAllGenres())
     dispatch(commentActions.findExistingComments())
-  }, [dispatch])
+  }, [dispatch, deleted])
+
 
   const audioList1 = [
   {
@@ -432,7 +444,7 @@ const options = {
    * @param {*} downloadInfo
    * @example
    *
-       customDownloader(downloadInfo) {
+      customDownloader(downloadInfo) {
         const link = document.createElement('a')
         link.href = downloadInfo.src
         link.download = downloadInfo.filename || 'test'
@@ -526,12 +538,12 @@ const options = {
         <div classname='comments__container'>
           <form onSubmit={onSubmit}>
             <div className="CommentsInputContainer">
-              <div>{selectedComments.length} Comments</div>
+              <div>{selectedComments?.length} Reviews</div>
               <div className='input_div'>
                 <input
                   type="text"
                   name="Comments"
-                  placeholder='Add a public comment...'
+                  placeholder='Add a public review...'
                   onChange={updateComment}
                   value={comment}
                 ></input>
@@ -539,17 +551,20 @@ const options = {
             </div>
           </form>
           <div className='comments__outer'>
-            {selectedComments.map((comment) => {
+            {selectedComments?.map((comment) => {
               return <div className='comments'>
                 <div className='comment_image'>
                     { comment?.userProfileURL ? <img src={`${comment?.userProfileURL}`} /> 
                               : <div>
-                                    <Avatar className={classes.orange}>{comment?.username[0]}</Avatar>
+                                    <Avatar className={classes.orange}>{comment?.username && comment?.username[0]}</Avatar>
                                 </div>}
                 </div>
                 <div className='username-comment__container'>
-                  <div className='comment_username'>{comment.username}</div>
-                  <div className='comment_comment'>{comment.comment}</div>
+                  <div className='comment_username'>{comment?.username}</div>
+                  <div className='comment_comment'>{comment?.comment}</div>
+                </div>
+                <div>
+                    {user && user?.id === comment?.user_id ? <button className='delete-comment' onClick={(e) => onDelete(e, comment?.id)}>🗑</button>: ''}
                 </div>
               </div>
             })}
