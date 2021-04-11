@@ -8,7 +8,7 @@ import Profile from '../Profile/index';
 import * as sessionActions from '../../store/session';
 import UploadForm from '../UploadForm/index';
 import './NavBar.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import {authenticate} from '../../store/session';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -129,9 +129,9 @@ const NavBar = ({ loaded }) => {
                     </div>
                 </NavLink>
                 <div>
-                    <NavLink className='libraryButton' to='/developer'>
+                    <a className='libraryButton' href='https://ycherradi.github.io'>
                         Developer
-                    </NavLink>
+                    </a>
                 </div>
                 <div className="navbarItem">
                     <input

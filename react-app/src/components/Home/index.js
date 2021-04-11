@@ -6,7 +6,6 @@ import * as likeActions from '../../store/likes';
 import * as sessionActions from '../../store/session';
 import Songs from '../Songs/index';
 import './Home.css';
-import Footer from '../Footer/index';
 import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 import banner from '../../images/banner2.jpeg';

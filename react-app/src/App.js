@@ -6,7 +6,6 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { authenticate } from "./store/session";
 import Home from "./components/Home/index";
 import Profile from "./components/Profile/index";
-import Developer from './components/Developer/index';
 import UserSongPage from './components/UserSongPage/index';
 import SongPage from './components/SongPage/index';
 import './index.css';
@@ -51,11 +50,8 @@ function App() {
         <Route path='/songs/:id'>
             <SongPage loaded={loaded}/>
           </Route>
-        <Route path='/developer'>
-            <Developer loaded={loaded}/>
-          </Route>
       </Switch> 
-      {/* <Footer/> */}
+    
     </>
   );
 }

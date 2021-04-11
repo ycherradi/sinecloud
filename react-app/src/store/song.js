@@ -81,7 +81,7 @@ const songReducer = (state = initialState, action) => {
 
         case DELETE_SONG:
             const newState = {};
-            return newState;
+            return state;
 
         case EDIT_SONG:
             return action.updatedSong;

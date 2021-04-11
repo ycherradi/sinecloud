@@ -45,3 +45,16 @@
 .followers, .tracks {
   border-left: 1px solid gray;
 }
+
+.delete-song {
+
+  width: 30px;
+  height: 30px;
+  background-image: url('../../images/delete-icon.png');
+  background-size: contain;
+  position: absolute;
+  margin-top: 160px;
+  margin-left: 170px;
+  cursor: pointer;
+  
+}

@@ -210,15 +210,19 @@ h2 {
 }
 
 .song__info {
-  display: flex;
+  /* display: flex; */
 }
 
 .song__user--info {
   border: 1px solid gray;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  position: absolute;
   height: 40px;
   width: 40px;
   border-radius: 100%;
+  margin-top: 150px;
+  margin-left: 10px;
+  
 }
 
 
@@ -233,3 +237,4 @@ h2 {
 .song__user--info  > div{
   cursor: pointer;
 }
+

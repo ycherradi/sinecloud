@@ -12,6 +12,7 @@ function Upload() {
 
   const dispatch = useDispatch();
   const [currentSong, setCurrentSong] = useState('');
+  const [remove, setRemove] = useState(false);
   const songs = useSelector((state) => state?.song);
   const user = useSelector((state) => state?.session.user);
   const likes = useSelector((state) => state?.likes);
@@ -20,9 +21,18 @@ function Upload() {
   const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(currentSong))
 
   
+  const onRemove = (songId) => {
+    dispatch(musicActions.deleteExistingSong(songId))
+    setRemove(false)
+        setTimeout(() => {
+            setRemove(true)
+          }, 100);
+  }
+
+
   useEffect(() => {
     dispatch(musicActions.findExistingSongs())
-  }, [dispatch])
+  }, [dispatch, remove])
 
   
   const audioList1 = [
@@ -386,6 +396,7 @@ const options = {
                                       <img key={`${song.id}`} src={`${song?.image_url}`} alt='song_image' />
                                     </div>
                                     <div id={`${song?.id}`} onClick={(e) => setCurrentSong(e.target.id)}  className="image2"></div>
+                                    <div className='delete-song' onClick={() => onRemove(song?.id)}></div>
                                 </div>
                                 <div className="title">{song?.title}</div>
                                 <div className="artist">{song?.artist}</div>
