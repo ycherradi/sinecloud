@@ -1,0 +1,16 @@
+#waveform {
+    width: 500px;
+    margin-top: 50px;
+
+}
+
+
+#wave-minimap, #wave-minimap > canvas {
+  width: 600px;
+  left: 0;
+  height: 80px;
+  padding-left: 100px;
+  margin-top: 1%;
+  
+}
+

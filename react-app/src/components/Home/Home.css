@@ -21,3 +21,11 @@
   background-color: whitesmoke;
   border-top: 1px solid gray;
 }
+
+.banner > img {
+  width: 1400px;
+  height: auto;
+  margin-top: 40px;
+  margin-left: 50px;
+
+}

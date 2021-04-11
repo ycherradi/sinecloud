@@ -29,9 +29,6 @@ Mako = "==1.1.3"
 PyJWT = "==1.7.1"
 boto3 = "*"
 pydub = "*"
-ffmpeg = "*"
-ffprobe = "*"
-simpleaudio = "*"
 numpy = "*"
 
 [dev-packages]

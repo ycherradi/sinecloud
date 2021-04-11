@@ -164,7 +164,7 @@ function Songs({ setCurrentSong, loaded}) {
     <div>
       <h1 className="charts">Charts: Top Genres</h1>
       <div className="songs__container">
-          <h1>Rock</h1>
+            <h1>Rock</h1>
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -188,7 +188,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -226,7 +226,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -264,7 +264,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -302,7 +302,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -340,7 +340,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -378,7 +378,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -416,7 +416,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -454,7 +454,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>
@@ -492,7 +492,7 @@ function Songs({ setCurrentSong, loaded}) {
                                 <div className='song__info'>
                                   <div className='song__user--info'>
                                     
-                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick2(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick2(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                                    {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
                                   </div>
                                   <div>
                                     <div className="title" >{song?.title}</div>

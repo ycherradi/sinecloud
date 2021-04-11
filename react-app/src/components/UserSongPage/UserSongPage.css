@@ -80,6 +80,11 @@ body {
 
 .list__spacer {
   height: 80px;
+  color: black;
+  width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
 }
 
 .song__list {

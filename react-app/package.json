@@ -16,12 +16,15 @@
     "react-flickity-component": "^3.6.1",
     "react-jinke-music-player": "^4.23.0",
     "react-modal": "^3.12.1",
+    "react-music-visualizer": "^1.1.0",
     "react-owl-carousel": "^2.3.3",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "wavesurfer.js": "^4.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -44,5 +47,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.13.12"
+  }
 }

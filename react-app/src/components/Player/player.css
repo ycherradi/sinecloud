@@ -1,0 +1,51 @@
+
+
+.controls {
+  display: flex;
+  position: fixed;
+  bottom:0px;
+  right:0px;
+  background-color: black;
+  width: 100%;
+  left: 0;
+  height: 80px;
+  padding-left: 150px;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+
+.volume {
+  margin-top: 1.5%;
+  margin-left: 80px;
+}
+
+.playBtn {
+  margin-left: 100px;
+}
+.playBtn > button {
+
+  margin-top: 25%;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: orangered;
+  color:white
+
+}
+
+.player_image > img {
+  margin-top: 25%;
+  width: 50px;
+  height: 50px;
+}
+
+.player_songInfo {
+  color: white;
+  margin-top: 2%;
+  margin-left: 20px;
+}
+
+#waveform1 {
+  display: none;
+}

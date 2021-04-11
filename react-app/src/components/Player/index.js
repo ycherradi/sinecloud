@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from "react-redux"
 import * as musicActions from '../../store/song';
-import './SongPage.css';
+import './player.css';
 import * as genreActions from '../../store/genre';
 import * as likeActions from '../../store/likes';
 import * as commentActions from '../../store/comments';
@@ -66,9 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 let audio = {};
 
-function SongPage() {
-
-  const classes = useStyles();
+function Player({selectedSong}) {
 
   let { id } = useParams();
   const dispatch = useDispatch();
@@ -84,7 +82,7 @@ function SongPage() {
   // const [commentsChanged, setCommentsChanged] = useState(false)
   const [deleted, setDeleted] = useState(false);
 
-	const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(id));
+	// const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(id));s
 	const selectedGenre = genres?.find((genre) => genre?.id === selectedSong?.genre_id)
   const filteredSongs = Object.values(songs).filter((song) => song?.artist === selectedSong?.artist)
   // const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
@@ -140,42 +138,6 @@ function SongPage() {
   
 
 
-    const updateComment = (e) => {
-      setComment(e.target.value);
-    };
-
-
-    const onDelete = (e, commentId) => {
-      console.log(commentId)
-        e.preventDefault()
-        dispatch(commentActions.deleteExistingComment(commentId))
-        // setCommentsChanged(true) 
-        setTimeout(() => {
-            setDeleted(true)
-          }, 100);
-    }
-
-    const onClick = (songId) => {
-      
-      // e.stopPropagation();
-        const to = `/songs/${songId}`;
-        history.push(to);
-        
-  };
-  
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-      formData.append('userId', user.id)
-      formData.append("songId", selectedSong.id);
-      formData.append("comment", comment);
-
-    await dispatch(commentActions.addNewComment(formData));
-    setComment('');
-    
-  }
-
-
   useEffect(() => {
     dispatch(musicActions.findExistingSongs())
   }, [dispatch])
@@ -188,111 +150,8 @@ function SongPage() {
 
   
   return (
-    <div className='song__page'>
-        <div className='song__banner'>
-          <div>
-              <div className='song__genre--info'>
-                <button className='playBtn1' onClick={() => {onClick(selectedSong.id);}}></button>
-                <div>
-                  <div className='sinecloud__div'>Genre:</div>
-                  <div className='genre__div'>{selectedGenre?.name}</div>
-                </div>
-              </div>
-              <div className='song__banner--spacer'></div>
-              <div className='tracks__circle'>
-                {!selectedSong?.userProfileURL ? (
-                          <div>
-                              {selectedSong?.username[0]}
-                          </div>
-                        ) :
-                      (
-                        <img
-                            className="profile__image"
-                            src={`${selectedSong?.userProfileURL}`}
-                            alt="profile-server"
-                        />
-                      )}
-              </div>
-          </div>
-          <div>
-              <div className='selected__artist'>{selectedSong?.artist}</div>
-              <div className='selected__title'>{selectedSong?.title}</div>
-              <div id="container">
-                <div id="waveform" ref={waveformRef} />
-              </div>
-          </div>
-          <div className='tracks__img'>
-            <img src={`${selectedSong?.image_url}`}/>
-          </div>
-        </div>
-        <div className='list__spacer'>
-            
-        </div>
-
-        {filteredSongs?.map((song) => {
-          return  (<div className='song__list' >
-            <div className='oneSong__outer' onClick={() => {onClick(song.id);}}>
-              <div className='oneSong__inner' >
-                <div className='song__logo--container'>
-                  <div className='song__logo1'>
-                    <img src={`${song?.image_url}`}/>
-                  </div>
-                  <div id={`${song?.audio_file}`} onClick={audio.togglePlay} className="song__logo2"></div>
-                </div>
-                <div className='artist__name' onClick={() => onClick(song.id)}>{` ${song.artist} `}</div>
-                <div className='song_name' onClick={() => onClick(song.id)}>-- {` ${song.title} `}</div>
-                <div className='song_spacer'></div>
-                </div>
-              <div className='additional__controls'>
-                <button>❤️</button>
-                <button>🔁</button>
-                <button>🔘🔘🔘</button>
-              </div>
-            </div>
-        </div>)
-        })}
-      
-        {/* {selectedSong && <ReactJkMusicPlayer 
-              id='audio-element'
-              {...params}
-                  
-        />} */}
-        <div classname='comments__container'>
-          <form onSubmit={onSubmit}>
-            <div className="CommentsInputContainer">
-              <div>{selectedComments?.length} Reviews</div>
-              <div className='input_div'>
-                <input
-                  type="text"
-                  name="Comments"
-                  placeholder='Add a public review...'
-                  onChange={updateComment}
-                  value={comment}
-                ></input>
-              </div>
-            </div>
-          </form>
-          <div className='comments__outer'>
-            {selectedComments?.map((comment) => {
-              return <div className='comments'>
-                <div className='comment_image'>
-                    { comment?.userProfileURL ? <img src={`${comment?.userProfileURL}`} /> 
-                              : <div>
-                                    <Avatar className={classes.orange}>{comment?.username && comment?.username[0]}</Avatar>
-                                </div>}
-                </div>
-                <div className='username-comment__container'>
-                  <div className='comment_username'>{comment?.username}</div>
-                  <div className='comment_comment'>{comment?.comment}</div>
-                </div>
-                <div>
-                    {user && user?.id === comment?.user_id ? <button className='delete-comment' onClick={(e) => onDelete(e, comment?.id)}>🗑</button>: ''}
-                </div>
-              </div>
-            })}
-          </div>
-        </div>
         <div  className="controls">
+          <div id="waveform1" ref={waveformRef} />
           <div className="player_image">
             <img src={`${selectedSong?.image_url}`}></img>
           </div>
@@ -319,10 +178,9 @@ function SongPage() {
             />🔊
           </div>
       </div>
-    </div>
   )
 }
 
 
 
-export default SongPage;
+export default Player;
