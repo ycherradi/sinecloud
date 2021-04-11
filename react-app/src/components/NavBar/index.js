@@ -129,9 +129,9 @@ const NavBar = ({ loaded }) => {
                     </div>
                 </NavLink>
                 <div>
-                    <button className='libraryButton'>
-                        Library
-                    </button>
+                    <NavLink className='libraryButton' to='/developer'>
+                        Developer
+                    </NavLink>
                 </div>
                 <div className="navbarItem">
                     <input
