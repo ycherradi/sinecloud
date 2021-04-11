@@ -11,7 +11,7 @@
   background-color: white;
 }
 
-.audio__player {
+/* .audio__player {
   position: fixed;
   bottom:0;
   left:0;
@@ -20,7 +20,7 @@
   z-index: 1 ;
   background-color: whitesmoke;
   border-top: 1px solid gray;
-}
+} */
 
 .banner > img {
   width: 1400px;

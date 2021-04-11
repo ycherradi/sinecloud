@@ -81,7 +81,7 @@ function UserSongPage() {
   // const [playing, setPlaying] = useState(false)
   const [comment, setComment] = useState("");
   const [deleted, setDeleted] = useState(false);
-
+  const [likesChanged ,setLikesChanged ] = useState(false)
   
 	const selectedSong = useSelector((state) => state?.song && Object.values(state?.song).find((song) => song?.id === parseInt(id)));
   console.log(selectedSong)
@@ -93,6 +93,19 @@ function UserSongPage() {
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
   const [volume, setVolume] = useState(0.5);
+
+
+  const handleAddLike = (e, songId) => {
+    e.stopPropagation()
+    dispatch(likeActions.addLike(songId, user.id));
+    setLikesChanged(true)
+  };
+
+  const handleRemoveLike = (e, songId) => {
+    e.stopPropagation()
+    dispatch(likeActions.removeLike(songId, user.id));
+    setLikesChanged(true)
+  };
 
   // create new WaveSurfer instance
   // On component mount and when url changes
@@ -155,9 +168,11 @@ function UserSongPage() {
     };
     
     const onClick = (songId) => {
+      
       // e.stopPropagation();
       const to = `/user/songs/${songId}`;
       history.push(to);
+      handlePlayPause()
       };
       
       const onSubmit = async (e) => {
@@ -189,7 +204,7 @@ function UserSongPage() {
         <div className='song__banner'>
           <div>
               <div className='song__genre--info'>
-                <button className='playBtn1' onClick={() => {onClick(selectedSong?.id);}}></button>
+                <button className='playBtn1' onClick={handlePlayPause}>{!playing ? "Play" : "Pause"}</button>
                 <div>
                   <div className='sinecloud__div'>Genre:</div>
                   <div className='genre__div'>{selectedGenre?.name}</div>
@@ -239,7 +254,7 @@ function UserSongPage() {
                 <div className='song_spacer'></div>
                 </div>
               <div className='additional__controls'>
-                <button>❤️</button>
+                {likes?.includes(song.id) ? <button id={`${song.id}`} onClick={(e) => handleRemoveLike(e, song?.id)}>❤️</button> : <button id={`${song.id}`} onClick={(e) => handleAddLike(e, song?.id)}>🤍</button>}
                 <button>🔁</button>
                 <button>🔘🔘🔘</button>
               </div>
@@ -282,6 +297,7 @@ function UserSongPage() {
           </div>
         </div>
         <div  className="controls">
+          
           <div className="player_image">
             <img src={`${selectedSong?.image_url}`}></img>
           </div>
@@ -307,6 +323,7 @@ function UserSongPage() {
               defaultValue={volume}
             />🔊
           </div>
+          <div className='likeBtn'>{likes?.includes(selectedSong?.id) ? <button id={`${selectedSong?.id}`} onClick={(e) => handleRemoveLike(e, selectedSong?.id)}>❤️</button> : <button id={`${selectedSong?.id}`} onClick={(e) => handleAddLike(e, selectedSong?.id)}>🤍</button>}</div>
       </div>
     </div>
   )

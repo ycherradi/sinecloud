@@ -81,6 +81,7 @@ function Player({selectedSong}) {
   const [comment, setComment] = useState("");
   // const [commentsChanged, setCommentsChanged] = useState(false)
   const [deleted, setDeleted] = useState(false);
+  const [likesChanged ,setLikesChanged ] = useState(false)
 
 	// const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(id));s
 	const selectedGenre = genres?.find((genre) => genre?.id === selectedSong?.genre_id)
@@ -88,6 +89,19 @@ function Player({selectedSong}) {
   // const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
   const selectedComments = useSelector((state) => state?.comments && Object.values(state?.comments).filter((comment) => comment?.song_id === selectedSong?.id))
   
+
+  const handleAddLike = (e, songId) => {
+    e.stopPropagation()
+    dispatch(likeActions.addLike(songId, user.id));
+    setLikesChanged(true)
+  };
+
+  const handleRemoveLike = (e, songId) => {
+    e.stopPropagation()
+    dispatch(likeActions.removeLike(songId, user.id));
+    setLikesChanged(true)
+  };
+
 
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
@@ -106,8 +120,8 @@ function Player({selectedSong}) {
 
     wavesurfer.current.on("ready", function() {
       // https://wavesurfer-js.org/docs/methods.html
-      // wavesurfer.current.play();
-      // setPlay(true);
+      wavesurfer.current.play();
+      setPlay(true);
     
       // make sure object stillavailable when file loaded
       if (wavesurfer.current) {
@@ -177,6 +191,7 @@ function Player({selectedSong}) {
               defaultValue={volume}
             />🔊
           </div>
+          {/* <div className='likeBtn'>{likes?.includes(selectedSong?.id) ? <button id={`${selectedSong?.id}`} onClick={(e) => handleRemoveLike(e, selectedSong?.id)}>❤️</button> : <button id={`${selectedSong?.id}`} onClick={(e) => handleAddLike(e, selectedSong?.id)}>🤍</button>}</div> */}
       </div>
   )
 }

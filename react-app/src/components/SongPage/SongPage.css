@@ -81,7 +81,7 @@
   width: 100%;
   left: 0;
   height: 80px;
-  padding-left: 150px;
+  /* padding-left: 150px; */
   opacity: 0.8;
 }
 
@@ -114,6 +114,6 @@
 
 .player_songInfo {
   color: white;
-  margin-top: 2%;
+  margin-top: 1%;
   margin-left: 20px;
 }

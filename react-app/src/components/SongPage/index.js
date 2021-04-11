@@ -22,7 +22,7 @@ const formWaveSurferOptions = ref => ({
   waveColor: "#eee",
   progressColor: "OrangeRed",
   cursorColor: "OrangeRed",
-  barWidth: 2,
+  barWidth: 3,
   barRadius: 2,
   responsive: true,
   height: 150,
@@ -83,7 +83,9 @@ function SongPage() {
   const [comment, setComment] = useState("");
   // const [commentsChanged, setCommentsChanged] = useState(false)
   const [deleted, setDeleted] = useState(false);
+  const [likesChanged ,setLikesChanged ] = useState(false)
 
+  
 	const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(id));
 	const selectedGenre = genres?.find((genre) => genre?.id === selectedSong?.genre_id)
   const filteredSongs = Object.values(songs).filter((song) => song?.artist === selectedSong?.artist)
@@ -108,8 +110,8 @@ function SongPage() {
 
     wavesurfer.current.on("ready", function() {
       // https://wavesurfer-js.org/docs/methods.html
-      // wavesurfer.current.play();
-      // setPlay(true);
+      wavesurfer.current.play();
+      setPlay(true);
     
       // make sure object stillavailable when file loaded
       if (wavesurfer.current) {
@@ -175,6 +177,18 @@ function SongPage() {
     
   }
 
+  const handleAddLike = (e, songId) => {
+    e.stopPropagation()
+    dispatch(likeActions.addLike(songId, user.id));
+    setLikesChanged(true)
+  };
+
+  const handleRemoveLike = (e, songId) => {
+    e.stopPropagation()
+    dispatch(likeActions.removeLike(songId, user.id));
+    setLikesChanged(true)
+  };
+
 
   useEffect(() => {
     dispatch(musicActions.findExistingSongs())
@@ -192,7 +206,7 @@ function SongPage() {
         <div className='song__banner'>
           <div>
               <div className='song__genre--info'>
-                <button className='playBtn1' onClick={() => {onClick(selectedSong.id);}}></button>
+                <button className='playBtn1' onClick={handlePlayPause}>{!playing ? "Play" : "Pause"}</button>
                 <div>
                   <div className='sinecloud__div'>Genre:</div>
                   <div className='genre__div'>{selectedGenre?.name}</div>
@@ -244,7 +258,7 @@ function SongPage() {
                 <div className='song_spacer'></div>
                 </div>
               <div className='additional__controls'>
-                <button>❤️</button>
+                {likes?.includes(song.id) ? <button id={`${song.id}`} onClick={(e) => handleRemoveLike(e, song?.id)}>❤️</button> : <button id={`${song.id}`} onClick={(e) => handleAddLike(e, song?.id)}>🤍</button>}
                 <button>🔁</button>
                 <button>🔘🔘🔘</button>
               </div>
@@ -318,6 +332,7 @@ function SongPage() {
               defaultValue={volume}
             />🔊
           </div>
+          <div className='likeBtn'>{likes?.includes(selectedSong?.id) ? <button id={`${selectedSong?.id}`} onClick={(e) => handleRemoveLike(e, selectedSong?.id)}>❤️</button> : <button id={`${selectedSong?.id}`} onClick={(e) => handleAddLike(e, selectedSong?.id)}>🤍</button>}</div>
       </div>
     </div>
   )

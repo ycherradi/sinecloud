@@ -24,20 +24,27 @@ body {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: url('../../images/playButton.png');
+  /* background: url('../../images/playButton.png'); */
+  background-color: #f50;
   background-size: cover;
   background-position: center;
   border: none;
+  font-weight: bolder;
+  font-size: larger;
+  color: white;
 }
 
-.playBtn1:hover {
+.playBtn1:hover, .playBtn1:focus {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: url('../../images/hoverPlayButton.png');
+  /* background: url('../../images/hoverPlayButton.png'); */
+  background-color: #f50;
   background-size: cover;
   background-position: center;
   cursor: pointer;
+  color: white;
+  outline: none;
 }
 
 .active1 {
@@ -227,3 +234,67 @@ body {
   text-align: center;
   
 }
+
+
+.likeBtn, .likeBtn > button {
+margin-top: 1.5%;
+margin-left: 50px;
+background-color: black;
+border: none;
+cursor: pointer;
+font-size: larger;
+outline: none;
+}
+
+.likeBtn, .likeBtn > button:focus {
+margin-top: 1.5%;
+margin-left: 50px;
+background-color: black;
+border: none;
+cursor: pointer;
+font-size: larger;
+outline: none;
+}
+
+
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+      overflow: hidden;
+      width: 80px;
+      -webkit-appearance: none;
+      background-color: white;
+    }
+    
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 10px;
+      -webkit-appearance: none;
+      color: #f50;
+      margin-top: -1px;
+    }
+    
+    input[type='range']::-webkit-slider-thumb {
+      width: 10px;
+      -webkit-appearance: none;
+      height: 10px;
+      cursor: ew-resize;
+      background: #434343;
+      box-shadow: -80px 0 0 80px #f50;
+    }
+
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: #f50; 
+}
+input[type="range"]::-moz-range-track {  
+  background-color: white;
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: #f50; 
+}
+input[type="range"]::-ms-fill-upper {  
+  background-color: white;
+}
+
