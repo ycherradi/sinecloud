@@ -34,14 +34,13 @@ const SignUpForm = ({
     formData1.append("password", password);
 
     formData1.append("profile_URL", image);
-    console.log(formData1);
 
     const user = await dispatch(sessionActions.signup(formData1));
-
+    
     if (password === repeatPassword) {
       if (!user.payload.errors) {
         setImageLoading(false);
-    
+        
 
         return history.push("/");
       } else {

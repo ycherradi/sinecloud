@@ -97,20 +97,20 @@ const [openProfileFollowers, setOpenProfileFollowers] = useState(false);
     <div className='profile__outer-div'>
       <div className='profile__banner-div'>
         <div className='profile__image-div' onClick={openModalSignUp}>
-          {!user?.profile_URL ? (
-                          <div>
-                              {user?.artist_name[0]}
-                          </div>
-                        ) :
-                      (
-                        <img
-                            className="profile__image"
-                            src={`${user?.profile_URL}`}
-                            alt="profile-server"
-                        />
-                      )}
+            {!user?.profile_URL ? (
+                            <div>
+                                {user?.artist_name[0]}
+                            </div>
+                          ) :
+                        (
+                          <img
+                              className="profile__image1"
+                              src={`${user?.profile_URL}`}
+                              alt="profile-server"
+                          />
+                        )}
         </div>
-        <div className='names__div'>
+        <div className='info__div1'>
           <h1>{user?.artist_name}</h1>
           <h3> ID# {user?.id}</h3>
         </div>
