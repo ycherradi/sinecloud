@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.songs_routes import songs_routes
 from .api.genre_routes import genre_routes
 from .api.comments_routes import comments_routes
+from .api.follows_routes import follows_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -39,6 +40,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(songs_routes, url_prefix='/api/songs')
 app.register_blueprint(genre_routes, url_prefix='/api/genres')
 app.register_blueprint(comments_routes, url_prefix='/api/comments')
+app.register_blueprint(follows_routes, url_prefix='/api/follows')
 db.init_app(app)
 Migrate(app, db)
 

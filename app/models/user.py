@@ -22,11 +22,11 @@ follows = db.Table(
     'follows',
     db.Column(
         "following_userId", db.Integer, db.ForeignKey('users.id'),
-        nullable=False
+        nullable=False, primary_key=True
     ),
     db.Column(
         'followers_userId', db.Integer, db.ForeignKey('users.id'),
-        nullable=False
+        nullable=False, primary_key=True
     )
 )
 
@@ -54,6 +54,12 @@ class User(db.Model, UserMixin):
     songs = db.relationship(
         'Song', secondary=likes, back_populates='users', lazy='dynamic'
     )
+    followers = db.relationship(
+        'User', secondary=follows,primaryjoin=(follows.c.following_userId == id),
+        secondaryjoin=(follows.c.followers_userId == id))
+    followed = db.relationship(
+        'User', secondary=follows,secondaryjoin=(follows.c.following_userId == id),
+        primaryjoin=(follows.c.followers_userId == id))
 
     @property
     def password(self):

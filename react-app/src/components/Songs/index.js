@@ -74,7 +74,7 @@ function Songs({ setCurrentSong, loaded}) {
   const [modalIsOpenLogin, setIsOpenLogin] = useState(false);
   const [modalIsOpenSignUp, setIsOpenSignUp] = useState(false);
   const [modalIsOpenUpload, setIsOpenUpload] = useState(false);
-  console.log(songs)
+  
 
   
   function openModalLogin() {

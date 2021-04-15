@@ -19,7 +19,7 @@ const SignUpForm = ({
   const [repeatPassword, setRepeatPassword] = useState("");
   const [image, setImage] = useState([]);
   const [imageLoading, setImageLoading] = useState(false);
-  const user = useSelector((state) => state.session.user)
+  // const user = useSelector((state) => state?.session.user)
 
   const history = useHistory();
 
@@ -36,15 +36,18 @@ const SignUpForm = ({
     formData1.append("profile_URL", image);
 
     const user = await dispatch(sessionActions.signup(formData1));
-    
-    if (password === repeatPassword) {
-      if (!user.payload.errors) {
-        setImageLoading(false);
-        
 
+    if (password === repeatPassword) {
+      // console.log(user)
+      if (!user.errors) {
+        
+        setImageLoading(false);
         return history.push("/");
+        
       } else {
-        setErrors(user.payload.errors);
+        console.log(user.errors)
+        setErrors(user.errors)
+        // console.log(user.payload.errors)
       }
     }
   };
@@ -77,9 +80,9 @@ const SignUpForm = ({
     setRepeatPassword(e.target.value);
   };
 
-  if (user) {
-    return <Redirect to="/" />;
-  }
+  // if (user) {
+  //   return <Redirect to="/" />;
+  // }
 
   const updateImage = (e) => {
     console.log(e.target.files[0]);

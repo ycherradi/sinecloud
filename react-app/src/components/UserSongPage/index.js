@@ -6,6 +6,7 @@ import './UserSongPage.css';
 import * as genreActions from '../../store/genre';
 import * as likeActions from '../../store/likes';
 import * as commentActions from '../../store/comments';
+import * as followActions from '../../store/follows';
 import { useHistory } from "react-router";
 import { useParams } from 'react-router-dom';
 import ReactJkMusicPlayer from 'react-jinke-music-player'
@@ -39,6 +40,7 @@ const formWaveSurferOptions = ref => ({
             waveColor: "#eee",
             progressColor: "OrangeRed",
             height: 50,
+            hideScrollbar: true,
         })
     ]
   
@@ -69,7 +71,7 @@ function UserSongPage() {
 
   const classes = useStyles();
 
-  let { id } = useParams();
+  let { songId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const songs = useSelector((state) => state?.song);
@@ -77,18 +79,21 @@ function UserSongPage() {
   const likes = useSelector((state) => state?.likes);
   const genres = useSelector((state) => state?.genre.genres);
   const comments = useSelector((state) => state.comments);
+  const followings = useSelector((state) => state?.follows.followers);
   const [currentSong, setCurrentSong] = useState('');
   // const [playing, setPlaying] = useState(false)
   const [comment, setComment] = useState("");
   const [deleted, setDeleted] = useState(false);
   const [likesChanged ,setLikesChanged ] = useState(false)
+  const [followsChanged, setFollowsChanged] = useState(false);
   
-	const selectedSong = useSelector((state) => state?.song && Object.values(state?.song).find((song) => song?.id === parseInt(id)));
-  console.log(selectedSong)
+	const selectedSong = useSelector((state) => state?.song && Object.values(state?.song).find((song) => song?.id === parseInt(songId)));
 	const selectedGenre = genres?.find((genre) => genre.id === selectedSong?.genre_id)
   const filteredSongs = Object.values(songs).filter((song) => song.user_id === selectedSong?.user_id)
   const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
-  
+  const isFollowed = followings?.find((following) => following.id === selectedSong?.user_id)
+
+
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
@@ -150,8 +155,6 @@ function UserSongPage() {
   };
   
 
-
-    
     const onDelete = (e, commentId) => {
       console.log(commentId)
         e.preventDefault()
@@ -186,6 +189,30 @@ function UserSongPage() {
       setComment('');
     }
     
+
+  const onFollow = (e, artistId) => {
+    e.stopPropagation()
+    dispatch(followActions.addFollow(user.id, artistId));
+    setTimeout(() => {
+      setFollowsChanged(true);
+
+    }, 100)
+
+  }
+
+
+  const offFollow = (e, artistId) => {
+    e.stopPropagation()
+    dispatch(followActions.removeFollow(user.id, artistId));
+
+  }
+
+
+  useEffect(() => {
+    dispatch(followActions.fetchUserFollows(user?.id))
+    setFollowsChanged(false)
+  }, [dispatch, user, followsChanged])
+
     
     useEffect(() => {
       dispatch(musicActions.findExistingSongs())
@@ -212,19 +239,9 @@ function UserSongPage() {
               </div>
               <div className='song__banner--spacer'></div>
               <div className='tracks__circle'>
-                {!selectedSong?.userProfileURL ? (
-                          <div>
-                              {selectedSong?.username[0]}
-                          </div>
-                        ) :
-                      (
-                        <img
-                            className="profile__image"
-                            src={`${selectedSong?.userProfileURL}`}
-                            alt="profile-server"
-                        />
-                      )}
+                {filteredSongs.length} Tracks
               </div>
+              
           </div>
           <div>
               <div className='selected__artist'>{selectedSong?.artist}</div>
@@ -236,31 +253,48 @@ function UserSongPage() {
           </div>
         </div>
         <div className='list__spacer'>
-          <h2>Uploads</h2>
-        </div>
-
-        {filteredSongs?.map((song) => {
-          return  (<div className='song__list' >
-            <div className='oneSong__outer' onClick={() => {onClick(song.id);}}>
-              <div className='oneSong__inner' >
-                <div className='song__logo--container'>
-                  <div className='song__logo1'>
-                    <img src={`${song?.image_url}`}/>
-                  </div>
-                  <div id={`${song?.audio_file}`} onClick={audio.togglePlay} className="song__logo2"></div>
-                </div>
-                <div className='artist__name' onClick={() => onClick(song.id)}>{` ${song.artist} `}</div>
-                <div className='song_name' onClick={() => onClick(song.id)}>-- {` ${song.title} `}</div>
-                <div className='song_spacer'></div>
-                </div>
-              <div className='additional__controls'>
-                {likes?.includes(song.id) ? <button id={`${song.id}`} onClick={(e) => handleRemoveLike(e, song?.id)}>❤️</button> : <button id={`${song.id}`} onClick={(e) => handleAddLike(e, song?.id)}>🤍</button>}
-                <button>🔁</button>
-                <button>🔘🔘🔘</button>
+          <div className='profile__circle'>
+            {!selectedSong?.userProfileURL ? (
+              <div>
+                {selectedSong?.username[0]}
               </div>
-            </div>
-        </div>)
-        })}
+            ) :
+              (
+                <img
+                  className="profile__image"
+                  src={`${selectedSong?.userProfileURL}`}
+                  alt="profile-server"
+                />
+              )}
+          </div>
+        {isFollowed ? <div className='follow' onClick={(e) => offFollow(e, selectedSong?.user_id)}>unFollow</div> : <div className='follow' onClick={(e) => onFollow(e, selectedSong?.user_id)}>+ Follow</div>}
+
+        </div>
+        <div className='songs-area'>
+          <h2>Uploads</h2>
+          {filteredSongs?.map((song) => {
+            return  (<div className='song__list' >
+              <div className='oneSong__outer' onClick={() => {onClick(song.id);}}>
+                <div className='oneSong__inner' >
+                  <div className='song__logo--container'>
+                    <div className='song__logo1'>
+                      <img src={`${song?.image_url}`}/>
+                    </div>
+                    <div id={`${song?.audio_file}`} onClick={handlePlayPause} className="song__logo2"></div>
+                  </div>
+                  <div className='artist__name' onClick={() => onClick(song.id)}>{` ${song.artist} `}</div>
+                  <div className='song_name' onClick={() => onClick(song.id)}>-- {` ${song.title} `}</div>
+                  <div className='song_spacer'></div>
+                  </div>
+                <div className='additional__controls'>
+                  {likes?.includes(song.id) ? <button id={`${song.id}`} onClick={(e) => handleRemoveLike(e, song?.id)}>❤️</button> : <button id={`${song.id}`} onClick={(e) => handleAddLike(e, song?.id)}>🤍</button>}
+                  <button>🔁</button>
+                  <button>🔘🔘🔘</button>
+                </div>
+              </div>
+          </div>)
+          })}
+        </div>
         <div classname='comments__container'>
           <form onSubmit={onSubmit}>
             <div className="CommentsInputContainer">

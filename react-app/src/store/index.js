@@ -6,6 +6,7 @@ import genreReducer from "./genre";
 import likesReducer from "./likes";
 import usersReducer from "./users";
 import commentReducer from "./comments";
+import followsReducer from './follows';
 
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   likes: likesReducer,
   users: usersReducer,
   comments: commentReducer,
+  follows: followsReducer,
 });
 
 let enhancer;

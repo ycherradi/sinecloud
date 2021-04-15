@@ -27,17 +27,17 @@ const LoginForm = ({
         e.preventDefault();
         const user = await dispatch(sessionActions.login({ email, password }));
 
-        if (!user.payload.errors) {
+        if (!user.errors) {
             setIsOpenLogin(false);
         
 
             return history.push('/');
         } else {
-            setErrors(user.payload.errors);
+            setErrors(user.errors);
         }
     };
 
-    const email1 = 'demo@aa.io';
+    const email1 = 'demo1@aa.io';
     const password1 = 'password';
 
     const demoUser = (e) => {

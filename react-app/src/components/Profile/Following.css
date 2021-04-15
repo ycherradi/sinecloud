@@ -1,0 +1,59 @@
+.following-area-outer {
+  display: flex;
+  text-align: center;
+  margin-left: 100px;
+  margin-right: 100px;
+  cursor: pointer;
+}
+
+
+
+.following-area-outer  > h2{
+
+}
+
+
+.following-area-inner {
+  display: flex;
+  flex-wrap: wrap;
+  border-style: none;
+  width: 2000px;
+
+}
+
+.user__info1 {
+  display: flex;
+  border-left: 1px solid gray;
+  width: 700px;
+  height: 1000px;
+  
+}
+
+.following1, .followers1, .tracks1 {
+  padding-left: 10px;
+  padding-right: 30px;
+  padding-bottom: 20px;
+  height: 30px;
+}
+
+.tracks1 > div, .followers1 > div, .following1 > div {
+  text-align: left;
+  padding-top: 10px;
+  font-size: 20px;
+}
+
+.followers1, .tracks1 {
+  border-left: 1px solid gray;
+}
+
+.following-name {
+  font-size: large;
+  font-weight: bolder;
+}
+
+.follow1 {
+  border: solid;
+  border-radius: 5px;
+  background-color: orangered;
+  color: white;
+}

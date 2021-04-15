@@ -13,7 +13,6 @@
   width: 40px;
   height: 40px;
   margin-top: 5px;
-
 }
 
 .comment_image > img {
@@ -21,7 +20,6 @@
   width: 40px;
   height: 40px;
   margin-top: 5px;
-
 }
 
 .comment_username {
@@ -41,12 +39,10 @@
 }
 
 .input_div > input {
-  
   border: none;
   margin-left: 40px;
   border-bottom: 1px solid gray;
   width: 1250px;
-
 }
 
 .input_div > input:focus {
@@ -87,7 +83,6 @@
 }
 
 
-
 .volume {
   margin-top: 1.5%;
   margin-left: 80px;
@@ -96,8 +91,8 @@
 .playBtn {
   margin-left: 100px;
 }
-.playBtn > button {
 
+.playBtn > button {
   margin-top: 25%;
   width: 50px;
   height: 50px;
@@ -117,4 +112,25 @@
   color: white;
   margin-top: 1%;
   margin-left: 20px;
+}
+
+.songs-area {
+  margin-left: 100px;
+  margin-top: 100px;
+}
+
+.follow {
+  border-style: solid;
+  width: 70px;
+  border-radius: 5px;
+  background-color: orangered;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+#wave-minimap {
+  width: 900px;
 }

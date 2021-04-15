@@ -26,9 +26,12 @@ export const signup = (user) => async (dispatch) => {
     method: "POST",
     body: user,
   });
-  const data = await response.json();
-  console.log(data);
-  return dispatch(setUser(data));
+  // if (response.ok) {
+    const data = await response.json();
+    if(!data.errors) dispatch(setUser(data));
+    return data
+  // }
+  // return {payload: {errors: []}}
 };
 
 // login
@@ -45,7 +48,8 @@ export const login = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  return dispatch(setUser(data));
+  if (!data.errors) dispatch(setUser(data));
+  return data
 };
 
 // logout
@@ -55,7 +59,7 @@ export const logout = () => (dispatch) => {
 };
 
 // authenticate
-export const authenticate = () => async (dispatch) => {
+export const restoreUser = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
     headers: {
       'Content-Type': 'application/json'
@@ -63,7 +67,7 @@ export const authenticate = () => async (dispatch) => {
   });
   const data = await response.json();
   if(!data.errors) dispatch(setUser(data));
-  return
+  return data
 };
 
 

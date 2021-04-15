@@ -97,7 +97,7 @@ body {
 
 .song__list {
 
-  width: 1400px;
+  width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -215,6 +215,20 @@ body {
     border-radius: 50%;
     width: 120px;
     height: 120px;
+    font-size: 30px;
+    background-color: black;
+    color: whitesmoke;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile__circle {
+  margin-top: 60px;
+    display: flex;
+    text-align: center;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
     font-size: 80px;
     background-color: #f50;
     color: whitesmoke;
@@ -223,7 +237,7 @@ body {
 }
 
 
-.tracks__circle > img {
+.profile__circle > img {
   border-radius: 100%;
   width: 120px;
   height: 120px;
@@ -231,7 +245,7 @@ body {
 }
 
 
-.tracks__circle > div {
+.profile__circle > div {
   text-align: center;
   
 }
@@ -257,6 +271,9 @@ font-size: larger;
 outline: none;
 }
 
+.songs-area > h2 {
+  padding-left: 110px;
+}
 
 /*Chrome*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
