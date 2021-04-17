@@ -8,6 +8,7 @@ import * as likeActions from '../../store/likes';
 import * as commentActions from '../../store/comments';
 import * as followActions from '../../store/follows';
 import * as sessionActions from '../../store/session';
+import * as playlistActions from '../../store/playlist';
 import { useHistory } from "react-router";
 import { useParams } from 'react-router-dom';
 import ReactJkMusicPlayer from 'react-jinke-music-player'
@@ -18,6 +19,9 @@ import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import WaveSurfer from "wavesurfer.js";
 import Minimap from 'wavesurfer.js/dist/plugin/wavesurfer.minimap.js'
 import '../visualizer/visualizer.css';
+import Modal from 'react-modal';
+import PlaylistForm from '../PlaylistForm/index';
+import { Button, Wrapper, Menu, MenuItem } from 'react-aria-menubutton';
 
 const formWaveSurferOptions = ref => ({
   container: ref,
@@ -71,6 +75,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    zIndex: 5,
+  },
+  content: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    borderRadius: '10px',
+    padding: '20px',
+    backgroundColor: '#2c2f33',
+    border: 'none',
+  },
+};
+
 let audio = {};
 
 function SongPage() {
@@ -85,6 +114,9 @@ function SongPage() {
   const likes = useSelector((state) => state?.likes);
   const genres = useSelector((state) => state?.genre.genres);
   const followings = useSelector((state) => state?.follows.followers);
+  const playlistSongs = useSelector((state) => state?.playlists)
+
+  const playlists = playlistSongs.filter((playlistSong) => playlistSong.song_id === null)
   
   // const comments = useSelector((state) => state.comments);
   const [currentSong, setCurrentSong] = useState('');
@@ -94,7 +126,10 @@ function SongPage() {
   const [deleted, setDeleted] = useState(false);
   const [followsChanged, setFollowsChanged] = useState(false);
   const [likesChanged ,setLikesChanged ] = useState(false);
+  const [modalIsOpenPlaylist, setIsOpenPlaylist] = useState(false);
+
   
+  const [menu, setMenu] = useState(false)
   
 	const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(songId));
 	const selectedGenre = genres?.find((genre) => genre?.id === selectedSong?.genre_id)
@@ -102,8 +137,27 @@ function SongPage() {
   // const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
   const selectedComments = useSelector((state) => state?.comments && Object.values(state?.comments).filter((comment) => comment?.song_id === selectedSong?.id))
   const isFollowed = followings?.find((following) => following.id === selectedSong?.user_id)
-  console.log(isFollowed)
   
+  
+
+  const handleClick = (event) => {
+    event.stopPropagation()
+  
+  };
+
+
+
+  const openPlaylistForm = (event) => {
+    event.stopPropagation()
+    openModalPlaylist()
+  }
+
+  const addToPlaylist = (event, name, songId) => {
+    dispatch(playlistActions.addToPlaylist(name, songId, user.id))
+    event.stopPropagation()
+
+  }
+
 
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
@@ -218,17 +272,30 @@ function SongPage() {
     dispatch(followActions.removeFollow(user.id, artistId));
     
   }
+
+  function openModalPlaylist() {
+    // e.stopPropagation();
+    setIsOpenPlaylist(true);
+  }
+
+  function closeModalPlaylist() {
+    // e.stopPropagation();
+    setIsOpenPlaylist(false);
+  }
+
   
   
   useEffect(() => {
     dispatch(followActions.fetchUserFollows(user?.id))
+    dispatch(playlistActions.fetchUserPlaylists(user?.id))
     setFollowsChanged(false)
   }, [dispatch, user, followsChanged])
 
 
   useEffect(() => {
     dispatch(musicActions.findExistingSongs())
-  }, [dispatch])
+
+  }, [dispatch, menu])
   
 
   useEffect(() => {
@@ -236,11 +303,11 @@ function SongPage() {
     dispatch(commentActions.findExistingComments())
   }, [dispatch, deleted])
   
-
+  let tempSongId;
 
   
   return (
-    <div className='song__page'>
+    <div className='song__page' >
         <div className='song__banner'>
           <div>
               <div className='song__genre--info'>
@@ -303,7 +370,41 @@ function SongPage() {
                     <div className='additional__controls'>
                       {likes?.includes(song.id) ? <button id={`${song.id}`} onClick={(e) => handleRemoveLike(e, song?.id)}>❤️</button> : <button id={`${song.id}`} onClick={(e) => handleAddLike(e, song?.id)}>🤍</button>}
                       <button>🔁</button>
-                      <button>🔘🔘🔘</button>
+                      <button onClick={handleClick} className='menuBtn'>
+                      <Wrapper
+                        className='MyMenuButton'
+                        // onSelection={handleSelection}
+                      >
+                        <Button className='MyMenuButton-button'>
+                          + Playlist
+                        </Button>
+                        <Menu className='MyMenuButton-menu'>
+                          <ul> {playlists?.map((playlist) => {
+                            return (
+
+                              <li onClick={(event) => addToPlaylist(event, playlist?.name, song.id)}>
+                                {playlist?.name}
+                              </li>
+                            )
+                          })}
+                          
+                          <li onClick={openPlaylistForm}>Create Playlist </li>
+                          </ul>
+                        </Menu>
+
+                      </Wrapper>
+                      </button>
+                      <Modal
+                        isOpen={modalIsOpenPlaylist}
+                        onRequestClose={closeModalPlaylist}
+                        style={customStyles}
+                        contentLabel="Example Modal"
+                      >
+                        <PlaylistForm
+                          closeModalPlaylist={closeModalPlaylist}
+                          openModalPlaylist={openModalPlaylist}
+                        />
+                      </Modal>
                     </div>
                   </div>
               </div>)

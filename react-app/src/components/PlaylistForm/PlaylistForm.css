@@ -1,0 +1,65 @@
+.PlaylistErrorModalContainer {
+  border-radius: 10px;
+  /* background-color: rgb(237, 210, 210); */
+  margin-left: 10px;
+  color: #f04747;
+}
+
+.Playlist-errors__container {
+  /* background-color: aqua;
+  color: #f04747; */
+}
+
+.PlaylistModalContainer {
+  color: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.PlaylistModalFormTitleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 2em;
+}
+
+.PlaylistErrorModalContainer > div {
+  padding: 5px;
+}
+
+.PlaylistModalInputContainer {
+  padding: 10px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+
+.PlaylistModalInputContainer label {
+  margin-bottom: 10px;
+}
+
+.PlaylistModalInputContainer > input {
+  font: inherit;
+  padding: 5px;
+  border: 1px solid rgb(170, 170, 170);
+  width: 300px;
+  border-radius: 3px;
+}
+
+.PlaylistModalSubmit__form {
+  font: inherit;
+  background-color: #f50;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 310px;
+}
+
+.PlaylistModalSubmit__form:hover {
+    background-color: rgb(247, 155, 110);
+}

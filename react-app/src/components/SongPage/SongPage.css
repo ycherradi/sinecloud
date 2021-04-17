@@ -134,3 +134,35 @@
 #wave-minimap {
   width: 900px;
 }
+
+.MyMenuButton-menu {
+  position:absolute;
+  /* width: 120px; */
+  /* z-index: 2; */
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
+  background-color: white;
+}
+
+.MyMenuButton-menu > ul {
+  padding: 4px;
+}
+.MyMenuButton-menu > ul > li {
+  list-style-type:none;
+  text-align: left;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.MyMenuButton-menu > ul > li:hover {
+  background-color: whitesmoke;
+  list-style-type:none;
+  text-align: left;
+  font-weight: bolder;
+}
+
+.menuBtn {
+  padding: 4px;
+  
+
+}

@@ -173,11 +173,11 @@ class Playlist(db.Model):
     __tablename__ = 'playlists'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=True,)
+    name = db.Column(db.String(255), nullable=False,)
     user_id = db.Column(db.Integer, db.ForeignKey(
         'users.id'), nullable=False, )
     song_id = db.Column(db.Integer, db.ForeignKey(
-        'songs.id'), nullable=False, )
+        'songs.id'), nullable=True, )
     created_at = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow
     )

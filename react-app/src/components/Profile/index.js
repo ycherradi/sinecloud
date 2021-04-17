@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import './Profile.css';
 import EditProfileImageForm from '../auth/EditProfileImageForm/EditProfileImageForm';
 import Uploaded from './Uploaded';
-import Playlist from './Playlist';
+import PlaylistLayout from './PlaylistLayout';
 import Likes from './Likes';
 import Following from './Following';
 import Followers from './Followers';
@@ -147,7 +147,7 @@ const [openProfileFollowers, setOpenProfileFollowers] = useState(false);
           <EditProfileImageForm closeModalSignUp={closeModalSignUp} />
       </Modal>
       {openProfileUpload && <Uploaded />}
-      {openProfilePlaylist && <Playlist/>}
+      {openProfilePlaylist && <PlaylistLayout/>}
       {openProfileLikes && <Likes />}
       {openProfileFollowing && <Following />}
       {openProfileFollowers && <Followers />}

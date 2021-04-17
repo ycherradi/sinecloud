@@ -9,9 +9,11 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@trendmicro/react-dropdown": "^1.4.0",
     "flickity": "^2.2.2",
     "http-proxy-middleware": "^1.0.5",
     "react": "^17.0.0",
+    "react-aria-menubutton": "^7.0.1",
     "react-dom": "^17.0.0",
     "react-flickity-component": "^3.6.1",
     "react-jinke-music-player": "^4.23.0",
@@ -24,6 +26,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "semantic-ui-react": "^2.0.3",
     "wavesurfer.js": "^4.6.0"
   },
   "scripts": {

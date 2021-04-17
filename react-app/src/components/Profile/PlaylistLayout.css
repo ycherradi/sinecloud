@@ -1,0 +1,21 @@
+.playlists-area {
+  border-right: 1px solid gray;
+  width: 200px;
+  
+}
+
+.playlists-area > div {
+  margin-left: 100px;
+  border-bottom: 1pt solid gray;
+  padding: 10px;
+  cursor: pointer;
+  
+}
+.playlists-area > div:hover {
+  margin-left: 100px;
+  border-bottom: 1pt solid gray;
+  padding: 10px;
+  cursor: pointer;
+  background-color: whitesmoke;
+  
+}
