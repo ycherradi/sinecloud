@@ -1,21 +1,46 @@
+
+.playlist-area {
+  height: 0;
+}
 .playlists-area {
+  height: 0px;
   border-right: 1px solid gray;
-  width: 200px;
+  width: 140px;
   
 }
 
 .playlists-area > div {
-  margin-left: 100px;
-  border-bottom: 1pt solid gray;
+  /* margin-left: 100px; */
+  /* border-bottom: 1pt solid gray; */
   padding: 10px;
   cursor: pointer;
+  background-color: white;
   
 }
-.playlists-area > div:hover {
-  margin-left: 100px;
+
+.playlist {
+  /* margin-left: 100px; */
+  background-color: white;
+  height: 0;
+  
+}
+
+
+.playlist-names-outer {
+  background-color: white;
+  /* width: 1500px; */
+  
+}
+
+.playlist-names-outer > div{
+  background-color: white;
+  width: 130px;
   border-bottom: 1pt solid gray;
-  padding: 10px;
-  cursor: pointer;
+  /* height: 500px; */
+}
+.playlist-names-outer > div:hover{
   background-color: whitesmoke;
-  
+  width: 130px;
+  border-bottom: 1pt solid gray;
 }
+

@@ -66,10 +66,11 @@ def addToPlaylist():
     return jsonify(playlistList)
 
 
-@playlists_routes.route('/playlists/', methods=['DELETE'])
+@playlists_routes.route('/playlist/', methods=['DELETE'])
 def deleteFromPlaylist():
     data = request.json
-    playlistItem = Playlist.query.get(data['playlistItemId'])
+    print('!!!!!!!!!!!!!data', data)
+    playlistItem = Playlist.query.filter_by(song_id=data['songId']).first()
     db.session.delete(playlistItem)
     db.session.commit()
     playlists = Playlist.query.filter_by(user_id=data['userId']).all()

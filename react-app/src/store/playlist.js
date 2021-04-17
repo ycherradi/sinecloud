@@ -54,13 +54,13 @@ export const addToPlaylist = (name, songId, userId) => async (dispatch) => {
   return dispatch(findUserPlaylists(userPlaylists));
 };
 
-export const removefromPlaylist = (playlistItemId, userId) => async (dispatch) => {
+export const removefromPlaylist = (playlistName, songId, userId) => async (dispatch) => {
   const response = await fetch('/api/playlists/playlist/', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ playlistItemId, userId }),
+    body: JSON.stringify({ playlistName, songId, userId}),
   });
   const userPlaylists = await response.json();
   return dispatch(findUserPlaylists(userPlaylists));

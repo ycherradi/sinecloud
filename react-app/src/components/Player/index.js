@@ -39,6 +39,7 @@ const formWaveSurferOptions = ref => ({
             waveColor: "#eee",
             progressColor: "OrangeRed",
             height: 50,
+            hideScrollbar: true,
         })
     ]
   

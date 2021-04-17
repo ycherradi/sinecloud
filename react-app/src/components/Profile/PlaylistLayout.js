@@ -18,7 +18,6 @@ import './PlaylistLayout.css';
 function PlaylistLayout() {
 
 
-  let { songId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const songs = useSelector((state) => state?.song);
@@ -29,26 +28,11 @@ function PlaylistLayout() {
   const playlistSongs = useSelector((state) => state?.playlists)
 
   const playlists = playlistSongs.filter((playlistSong) => playlistSong.song_id === null)
-
   
-  const [deleted, setDeleted] = useState(false);
   const [followsChanged, setFollowsChanged] = useState(false);
-  const [likesChanged, setLikesChanged] = useState(false);
-  const [modalIsOpenPlaylist, setIsOpenPlaylist] = useState(false);
+  
   const [openPlaylist, setOpenPlaylist] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
-  const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(songId));
-  const selectedGenre = genres?.find((genre) => genre?.id === selectedSong?.genre_id)
-  const filteredSongs = Object.values(songs).filter((song) => song?.artist === selectedSong?.artist)
-  // const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
-  const selectedComments = useSelector((state) => state?.comments && Object.values(state?.comments).filter((comment) => comment?.song_id === selectedSong?.id))
-  const isFollowed = followings?.find((following) => following.id === selectedSong?.user_id)
-  console.log(isFollowed)
-
-
-
+  
 
   useEffect(() => {
     dispatch(followActions.fetchUserFollows(user?.id))
@@ -68,26 +52,36 @@ function PlaylistLayout() {
   }, [dispatch])
 
   
-  const OpenPlaylist = () => {
-    setOpenPlaylist(true);
+  const OpenPlaylist = (event, idx) => {
+    event.stopPropagation()
+    setOpenPlaylist(idx);
   }
 
 
   return (
     <div className='playlists__page'>
       <div className='playlists-area'>
-        {playlists.map((playlist) => {
+        {playlists.map((playlist, idx) => {
           return (
-            <div>
-              <div onClick={OpenPlaylist}>
+            <div className='playlist-names-outer'>
+              <div className='playlist-names' onClick={(event) => OpenPlaylist(event, idx)}>
                 {playlist.name}
               </div>
-              <div>
-                {openPlaylist && <Playlist playlist={playlist}/>}
-              </div>  
             </div>
           )
         })}
+        <div className='playlist-area'>
+          {playlists.map((playlist, idx) => {
+            return (
+              
+                <div className='playlist'>
+                  {openPlaylist === idx && <Playlist playlist={playlist} />}
+                </div>
+              
+            )
+          })}
+        </div>
+              
       </div>
       
     </div>

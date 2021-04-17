@@ -9,8 +9,6 @@ import * as followActions from '../../store/follows';
 import * as sessionActions from '../../store/session';
 import * as playlistActions from '../../store/playlist';
 import { useHistory } from "react-router";
-import { useParams } from 'react-router-dom';
-import ReactJkMusicPlayer from 'react-jinke-music-player'
 import 'react-jinke-music-player/assets/index.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -18,11 +16,7 @@ import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import WaveSurfer from "wavesurfer.js";
 import Minimap from 'wavesurfer.js/dist/plugin/wavesurfer.minimap.js'
 import '../visualizer/visualizer.css';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Fade from '@material-ui/core/Fade';
-import Modal from 'react-modal';
-import PlaylistForm from '../PlaylistForm/index';
+import './Playlist.css'
 
 const formWaveSurferOptions = ref => ({
   container: ref,
@@ -107,7 +101,7 @@ function Playlist({playlist}) {
 
   const classes = useStyles();
 
-  let { songId } = useParams();
+  // let { songId } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const songs = useSelector((state) => state?.song);
@@ -121,13 +115,13 @@ function Playlist({playlist}) {
   const playlistSongs = filteredPlaylists?.map((filteredPlaylist) => {
                         return Object.values(songs).filter((song) => filteredPlaylist.song_id === song.id)})
   
-  
+  console.log(playlistSongs)
 
-  // const comments = useSelector((state) => state.comments);
+
   const [currentSong, setCurrentSong] = useState(playlistSongs[0][0]);
-  // const [playing, setPlaying] = useState(false)
+
   const [comment, setComment] = useState("");
-  // const [commentsChanged, setCommentsChanged] = useState(false)
+  
   const [deleted, setDeleted] = useState(false);
   const [followsChanged, setFollowsChanged] = useState(false);
   const [likesChanged, setLikesChanged] = useState(false);
@@ -135,27 +129,21 @@ function Playlist({playlist}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const selectedSong = Object.values(songs).find((song) => song?.id === parseInt(songId));
-  const selectedGenre = genres?.find((genre) => genre?.id === selectedSong?.genre_id)
-  const filteredSongs = Object.values(songs).filter((song) => song?.artist === selectedSong?.artist)
-  // const selectedComments = Object.values(comments).filter((comment) => comment.song_id === selectedSong?.id)
-  const selectedComments = useSelector((state) => state?.comments && Object.values(state?.comments).filter((comment) => comment?.song_id === selectedSong?.id))
-  const isFollowed = followings?.find((following) => following.id === selectedSong?.user_id)
+  const selectedComments = useSelector((state) => state?.comments && Object.values(state?.comments).filter((comment) => comment?.song_id === currentSong?.id))
 
-  console.log(currentSong)
 
-  const handleClick = (event) => {
+
+  const handleClick = (event, songId) => {
     event.stopPropagation()
-    setAnchorEl(event.currentTarget);
+
+    dispatch(playlistActions.removefromPlaylist(playlist.name, songId, user.id))
   };
 
   const handleClose = (event) => {
     event.stopPropagation()
     setAnchorEl(null);
   };
-
-
-
+  
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
@@ -166,17 +154,27 @@ function Playlist({playlist}) {
   useEffect(() => {
     setPlay(false);
 
+    let duration;
+    let currentTime;
     const options = formWaveSurferOptions(waveformRef.current);
 
     wavesurfer.current = WaveSurfer.create(options);
 
-    wavesurfer.current.load(`${currentSong}`);
+    
+    
+    
+    wavesurfer.current.load(`${currentSong?.audio_file}`);
 
     wavesurfer.current.on("ready", function () {
       // https://wavesurfer-js.org/docs/methods.html
-      // wavesurfer.current.play();
-      // setPlay(true);
-
+      
+      wavesurfer.current.play();
+      setPlay(true);
+      
+      duration = wavesurfer.current.getDuration(`${currentSong?.audio_file}`)
+      console.log(duration)
+      
+      
       // make sure object stillavailable when file loaded
       if (wavesurfer.current) {
         wavesurfer.current.setVolume(volume);
@@ -184,10 +182,30 @@ function Playlist({playlist}) {
       }
     });
 
+    wavesurfer.current.on("interaction", function () {
+      // https://wavesurfer-js.org/docs/methods.html
+      
+      currentTime = wavesurfer.current.getCurrentTime(`${currentSong?.audio_file}`)
+      console.log(currentTime)
+      
+    });
+    
+
+    wavesurfer.current.on("finish", function () {
+      // https://wavesurfer-js.org/docs/methods.html
+      
+      // for(let i = 0; i < playlistSongs.length; i++){
+      //   setTimeout(() => {
+      //     setCurrentSong(playlistSongs[i][0])
+      //   }, 10000)
+      // }
+      
+    });
+    
     // Removes events, elements and disconnects Web Audio nodes.
     // when component unmount
     return () => wavesurfer.current.destroy();
-  }, [`${currentSong}`]);
+  }, [`${currentSong?.audio_file}`]);
 
   const handlePlayPause = () => {
     setPlay(!playing);
@@ -221,18 +239,12 @@ function Playlist({playlist}) {
     }, 100);
   }
 
-  const onClick = (songId) => {
-
-    // e.stopPropagation();
-    setCurrentSong()
-
-  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('userId', user.id)
-    formData.append("songId", selectedSong.id);
+    formData.append("songId", currentSong.id);
     formData.append("comment", comment);
 
     await dispatch(commentActions.addNewComment(formData));
@@ -263,23 +275,6 @@ function Playlist({playlist}) {
   }
 
 
-  const offFollow = (e, artistId) => {
-    e.stopPropagation()
-    dispatch(followActions.removeFollow(user.id, artistId));
-
-  }
-
-  function openModalPlaylist() {
-    // e.stopPropagation();
-    setIsOpenPlaylist(true);
-  }
-
-  function closeModalPlaylist() {
-    // e.stopPropagation();
-    setIsOpenPlaylist(false);
-  }
-
-
 
   useEffect(() => {
     dispatch(followActions.fetchUserFollows(user?.id))
@@ -302,30 +297,30 @@ function Playlist({playlist}) {
 
 
   return (
-    <div className='song__page'>
-      <div id="waveform" ref={waveformRef} />
-      <div className='songs-area'>
+    <div className='playlist-song__page'>
+      <div id="waveform1" ref={waveformRef} />
+      <div className='playlist-songs__areas'>
         {playlistSongs?.map((song) => {
-          return (<div className='song__list' >
-            <div className='oneSong__outer' onClick={() => {
-              setCurrentSong(song[0]?.audio_file);
-              handlePlayPause();
+          return (<div className='playlist-song__list' >
+            <div className='playlist-oneSong__outer' onClick={() => {
+              setCurrentSong(song[0]);
+              // handlePlayPause();
             }}>
-              <div className='oneSong__inner' >
-                <div className='song__logo--container'>
-                  <div className='song__logo1'>
+              <div className='playlist-oneSong__inner' >
+                <div className='playlist-song__logo--container'>
+                  <div className='playlist-song__logo1'>
                     <img src={`${song[0]?.image_url}`} />
                   </div>
-                  <div id={`${song[0]?.audio_file}`} onClick={handlePlayPause} className="song__logo2"></div>
+                  <div id={`${song[0]?.audio_file}`} onClick={handlePlayPause} className="playlist-song__logo2"></div>
                 </div>
-                <div className='artist__name' onClick={() => setCurrentSong(song[0]?.audio_file)}>{` ${song[0].artist} `}</div>
-                <div className='song_name' onClick={() => setCurrentSong(song[0]?.audio_file)}>-- {` ${song[0].title} `}</div>
+                <div className='artist__name' onClick={() => setCurrentSong(song[0])}>{` ${song[0].artist} `}</div>
+                <div className='song_name' onClick={() => setCurrentSong(song[0])}>-- {` ${song[0].title} `}</div>
                 <div className='song_spacer'></div>
               </div>
               <div className='additional__controls'>
                 {likes?.includes(song[0].id) ? <button id={`${song[0].id}`} onClick={(e) => handleRemoveLike(e, song[0]?.id)}>❤️</button> : <button id={`${song[0].id}`} onClick={(e) => handleAddLike(e, song[0]?.id)}>🤍</button>}
                 <button>🔁</button>
-                <button onClick={handleClick}>Remove</button>
+                <button onClick={(event) => handleClick(event, song[0]?.id)}>Remove</button>
               </div>
             </div>
           </div>)
@@ -337,11 +332,11 @@ function Playlist({playlist}) {
               {...params}
                   
         />} */}
-      <div classname='comments__container'>
+      <div classname='playlist-comments__container'>
         <form onSubmit={onSubmit}>
-          <div className="CommentsInputContainer">
+          <div className="playlist-CommentsInputContainer">
             <div>{selectedComments?.length} Reviews</div>
-            <div className='input_div'>
+            <div className='playlist-input_div'>
               <input
                 type="text"
                 name="Comments"
@@ -352,21 +347,21 @@ function Playlist({playlist}) {
             </div>
           </div>
         </form>
-        <div className='comments__outer'>
+        <div className='playlist-comments__outer'>
           {selectedComments?.map((comment) => {
-            return <div className='comments'>
-              <div className='comment_image'>
+            return <div className='playlist-comments'>
+              <div className='playlist-comment_image'>
                 {comment?.userProfileURL ? <img src={`${comment?.userProfileURL}`} />
                   : <div>
                     <Avatar className={classes.orange}>{comment?.username && comment?.username[0]}</Avatar>
                   </div>}
               </div>
-              <div className='username-comment__container'>
-                <div className='comment_username'>{comment?.username}</div>
-                <div className='comment_comment'>{comment?.comment}</div>
+              <div className='playlist-username-comment__container'>
+                <div className='playlist-comment_username'>{comment?.username}</div>
+                <div className='playlist-comment_comment'>{comment?.comment}</div>
               </div>
               <div>
-                {user && user?.id === comment?.user_id ? <button className='delete-comment' onClick={(e) => onDelete(e, comment?.id)}>🗑</button> : ''}
+                {user && user?.id === comment?.user_id ? <button className='playlist-delete-comment' onClick={(e) => onDelete(e, comment?.id)}>🗑</button> : ''}
               </div>
             </div>
           })}
@@ -374,11 +369,11 @@ function Playlist({playlist}) {
       </div>
       <div className="controls">
         <div className="player_image">
-          <img src={`${selectedSong?.image_url}`}></img>
+          <img src={`${currentSong?.image_url}`}></img>
         </div>
         <div className='player_songInfo'>
-          <div className='player_artist'>{selectedSong?.artist}</div>
-          <div className='player_song'>{selectedSong?.title}</div>
+          <div className='player_artist'>{currentSong?.artist}</div>
+          <div className='player_song'>{currentSong?.title}</div>
         </div>
         <div className='playBtn'>
           <button onClick={handlePlayPause}>{!playing ? "Play" : "Pause"}</button>
@@ -398,7 +393,7 @@ function Playlist({playlist}) {
             defaultValue={volume}
           />🔊
           </div>
-        <div className='likeBtn'>{likes?.includes(selectedSong?.id) ? <button id={`${selectedSong?.id}`} onClick={(e) => handleRemoveLike(e, selectedSong?.id)}>❤️</button> : <button id={`${selectedSong?.id}`} onClick={(e) => handleAddLike(e, selectedSong?.id)}>🤍</button>}</div>
+        <div className='likeBtn'>{likes?.includes(currentSong?.id) ? <button id={`${currentSong?.id}`} onClick={(e) => handleRemoveLike(e, currentSong?.id)}>❤️</button> : <button id={`${currentSong?.id}`} onClick={(e) => handleAddLike(e, currentSong?.id)}>🤍</button>}</div>
       </div>
     </div>
   )

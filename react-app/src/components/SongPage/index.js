@@ -32,6 +32,7 @@ const formWaveSurferOptions = ref => ({
   barRadius: 2,
   responsive: true,
   height: 150,
+  
 
   
   // If true, normalize by the maximum peak instead of 1.0.
