@@ -61,6 +61,7 @@ function PlaylistLayout() {
   return (
     <div className='playlists__page'>
       <div className='playlists-area'>
+        <h3>playlists</h3>
         {playlists.map((playlist, idx) => {
           return (
             <div className='playlist-names-outer'>
@@ -70,7 +71,8 @@ function PlaylistLayout() {
             </div>
           )
         })}
-        <div className='playlist-area'>
+      </div>
+      <div className='playlist-area'>
           {playlists.map((playlist, idx) => {
             return (
               
@@ -80,7 +82,6 @@ function PlaylistLayout() {
               
             )
           })}
-        </div>
               
       </div>
       

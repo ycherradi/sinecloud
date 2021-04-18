@@ -2,13 +2,14 @@
   background-color: whitesmoke;
 } */
 .playlist-song__page {
-  width: 1350px;
+  width: 1300px;
   margin-right: auto;
   background-color: white;
   /* margin-bottom: 500px; */
   margin-left: 140px;
   height: 1000px;
-  top: 0;
+  /* top: ; */
+  margin-top: 50px;
 }
 
 .playlist-song__list {

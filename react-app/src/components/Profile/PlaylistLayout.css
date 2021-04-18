@@ -1,11 +1,16 @@
 
 .playlist-area {
   height: 0;
+  position: absolute;
+  margin-left: 20px;
+  top: 400px;
 }
+
 .playlists-area {
-  height: 0px;
-  border-right: 1px solid gray;
-  width: 140px;
+  /* border-right: 1px solid gray; */
+  height: 1400px;
+  max-width: fit-content;
+
   
 }
 

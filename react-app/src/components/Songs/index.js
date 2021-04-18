@@ -201,7 +201,9 @@ function Songs({ setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          {PopSongs.length > 0 ? <div className='h1'>Pop</div>: ''}
+          {PopSongs.length > 0 ? 
+          <>
+          <div className='h1'>Pop</div>
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -235,266 +237,280 @@ function Songs({ setCurrentSong, loaded}) {
                             )
                   })}
                   </OwlCarousel>
-            </div>      
+            </div> </>: ''}
         </div>
       <div className="songs__container">
-          {HiphopSongs.length > 0 ? <h1>Hip hop</h1>: ''}
+        {HiphopSongs.length > 0 ?
+          <>
+            <div className='h1'>Hip Hop</div>
             <div className="genre__container" >
-              <OwlCarousel items={7}  
-                className="owl-carousel owl-theme"  
-                loop  
+              <OwlCarousel items={7}
+                className="owl-carousel owl-theme"
+                loop
                 autoWidth
                 nav={true}
-                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                navText={["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]}
                 dots={false}
-              >  
-                  {HiphopSongs.map((song) => {
-                    return ( 
-                              <div key={`${song.id}`} className="item">
-                                <div className="image__container" >
-                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
-                                      <img src={`${song?.image_url}`} alt='song_image' />
-                                    {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
-                                    </div>
-                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
-                                    </div>
-                                    <div className='song__user--info'>
-                                      {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
-                                    </div>
-                                </div>
-                                <div className='song__info'>
-                                  <div className='user-info-text'>
-                                    <div className="title" >{song?.title}</div>
-                                    <div className="artist">{song?.artist}</div>
-                                  </div>
-                                </div>
-                              </div>
-                            )
-                  })}
-                  </OwlCarousel>
-            </div>      
+              >
+                {HiphopSongs.map((song) => {
+                  return (
+                    <div key={`${song.id}`} className="item">
+                      <div className="image__container" >
+                        <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
+                          <img src={`${song?.image_url}`} alt='song_image' />
+                          {user ? (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
+                        </div>
+                        <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
+                        </div>
+                        <div className='song__user--info'>
+                          {song?.userProfileURL ? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin} /> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                        </div>
+                      </div>
+                      <div className='song__info'>
+                        <div className='user-info-text'>
+                          <div className="title" >{song?.title}</div>
+                          <div className="artist">{song?.artist}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </OwlCarousel>
+            </div> </> : ''}
         </div>
       <div className="songs__container">
-          {JazzSongs.length > 0 ? <h1>Jazz</h1>: ''}
+        {JazzSongs.length > 0 ?
+          <>
+            <div className='h1'>Jazz</div>
             <div className="genre__container" >
-              <OwlCarousel items={7}  
-                className="owl-carousel owl-theme"  
-                loop  
+              <OwlCarousel items={7}
+                className="owl-carousel owl-theme"
+                loop
                 autoWidth
                 nav={true}
-                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                navText={["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]}
                 dots={false}
-              >  
-                  {JazzSongs.map((song) => {
-                    return ( 
-                              <div key={`${song.id}`} className="item">
-                                <div className="image__container" >
-                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
-                                      <img src={`${song?.image_url}`} alt='song_image' />
-                                    {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
-                                    </div>
-                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
-                                    </div>
-                                    <div className='song__user--info'>
-                                      {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
-                                    </div>
-                                </div>
-                                <div className='song__info'>
-                                  <div className='user-info-text'>
-                                    <div className="title" >{song?.title}</div>
-                                    <div className="artist">{song?.artist}</div>
-                                  </div>
-                                </div>
-                              </div>
-                            )
-                  })}
-                  </OwlCarousel>
-            </div>      
+              >
+                {JazzSongs.map((song) => {
+                  return (
+                    <div key={`${song.id}`} className="item">
+                      <div className="image__container" >
+                        <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
+                          <img src={`${song?.image_url}`} alt='song_image' />
+                          {user ? (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
+                        </div>
+                        <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
+                        </div>
+                        <div className='song__user--info'>
+                          {song?.userProfileURL ? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin} /> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                        </div>
+                      </div>
+                      <div className='song__info'>
+                        <div className='user-info-text'>
+                          <div className="title" >{song?.title}</div>
+                          <div className="artist">{song?.artist}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </OwlCarousel>
+            </div> </> : ''}
         </div>
       <div className="songs__container">
-          {CountrySongs.length > 0 ? <h1>Country</h1>: ''}
+        {CountrySongs.length > 0 ?
+          <>
+            <div className='h1'>Country</div>
             <div className="genre__container" >
-              <OwlCarousel items={7}  
-                className="owl-carousel owl-theme"  
-                loop  
+              <OwlCarousel items={7}
+                className="owl-carousel owl-theme"
+                loop
                 autoWidth
                 nav={true}
-                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                navText={["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]}
                 dots={false}
-              >  
-                  {CountrySongs.map((song) => {
-                    return ( 
-                              <div key={`${song.id}`} className="item">
-                                <div className="image__container" >
-                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
-                                      <img src={`${song?.image_url}`} alt='song_image' />
-                                    {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
-                                    </div>
-                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
-                                    </div>
-                                    <div className='song__user--info'>
-                                      {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
-                                    </div>
-                                </div>
-                                <div className='song__info'>
-                                  <div className='user-info-text'>
-                                    <div className="title" >{song?.title}</div>
-                                    <div className="artist">{song?.artist}</div>
-                                  </div>
-                                </div>
-                              </div>
-                            )
-                  })}
-                  </OwlCarousel>
-            </div>      
+              >
+                {CountrySongs.map((song) => {
+                  return (
+                    <div key={`${song.id}`} className="item">
+                      <div className="image__container" >
+                        <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
+                          <img src={`${song?.image_url}`} alt='song_image' />
+                          {user ? (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
+                        </div>
+                        <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
+                        </div>
+                        <div className='song__user--info'>
+                          {song?.userProfileURL ? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin} /> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                        </div>
+                      </div>
+                      <div className='song__info'>
+                        <div className='user-info-text'>
+                          <div className="title" >{song?.title}</div>
+                          <div className="artist">{song?.artist}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </OwlCarousel>
+            </div> </> : ''}
         </div>
       <div className="songs__container">
-          {MetalSongs.length > 0 ? <h1>Metal</h1>: ''}
+        {MetalSongs.length > 0 ?
+          <>
+            <div className='h1'>Metal</div>
             <div className="genre__container" >
-              <OwlCarousel items={7}  
-                className="owl-carousel owl-theme"  
-                loop  
+              <OwlCarousel items={7}
+                className="owl-carousel owl-theme"
+                loop
                 autoWidth
                 nav={true}
-                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                navText={["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]}
                 dots={false}
-              >  
-                  {MetalSongs.map((song) => {
-                    return ( 
-                              <div key={`${song.id}`} className="item">
-                                <div className="image__container" >
-                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
-                                      <img src={`${song?.image_url}`} alt='song_image' />
-                                    {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
-                                    </div>
-                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
-                                    </div>
-                                    <div className='song__user--info'>
-                                      {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
-                                    </div>
-                                </div>
-                                <div className='song__info'>
-                                  <div className='user-info-text'>
-                                    <div className="title" >{song?.title}</div>
-                                    <div className="artist">{song?.artist}</div>
-                                  </div>
-                                </div>
-                              </div>
-                            )
-                  })}
-                  </OwlCarousel>
-            </div>      
+              >
+                {MetalSongs.map((song) => {
+                  return (
+                    <div key={`${song.id}`} className="item">
+                      <div className="image__container" >
+                        <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
+                          <img src={`${song?.image_url}`} alt='song_image' />
+                          {user ? (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
+                        </div>
+                        <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
+                        </div>
+                        <div className='song__user--info'>
+                          {song?.userProfileURL ? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin} /> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                        </div>
+                      </div>
+                      <div className='song__info'>
+                        <div className='user-info-text'>
+                          <div className="title" >{song?.title}</div>
+                          <div className="artist">{song?.artist}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </OwlCarousel>
+            </div> </> : ''}
         </div>
       <div className="songs__container">
-          {WorldSongs.length > 0 ? <h1>World Music</h1>: ''}
+        {WorldSongs.length > 0 ?
+          <>
+            <div className='h1'>World Music</div>
             <div className="genre__container" >
-              <OwlCarousel items={7}  
-                className="owl-carousel owl-theme"  
-                loop  
+              <OwlCarousel items={7}
+                className="owl-carousel owl-theme"
+                loop
                 autoWidth
                 nav={true}
-                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                navText={["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]}
                 dots={false}
-              >  
-                  {WorldSongs.map((song) => {
-                    return ( 
-                              <div key={`${song.id}`} className="item">
-                                <div className="image__container" >
-                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
-                                      <img src={`${song?.image_url}`} alt='song_image' />
-                                    {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
-                                    </div>
-                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
-                                    </div>
-                                    <div className='song__user--info'>
-                                      {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
-                                    </div>
-                                </div>
-                                <div className='song__info'>
-                                  <div className='user-info-text'>
-                                    <div className="title" >{song?.title}</div>
-                                    <div className="artist">{song?.artist}</div>
-                                  </div>
-                                </div>
-                              </div>
-                            )
-                  })}
-                  </OwlCarousel>
-            </div>      
+              >
+                {WorldSongs.map((song) => {
+                  return (
+                    <div key={`${song.id}`} className="item">
+                      <div className="image__container" >
+                        <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
+                          <img src={`${song?.image_url}`} alt='song_image' />
+                          {user ? (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
+                        </div>
+                        <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
+                        </div>
+                        <div className='song__user--info'>
+                          {song?.userProfileURL ? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin} /> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                        </div>
+                      </div>
+                      <div className='song__info'>
+                        <div className='user-info-text'>
+                          <div className="title" >{song?.title}</div>
+                          <div className="artist">{song?.artist}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </OwlCarousel>
+            </div> </> : ''}
         </div>
       <div className="songs__container">
-          {ReggaeSongs.length > 0 ? <h1>Reggae</h1>: ''}
+        {ReggaeSongs.length > 0 ?
+          <>
+            <div className='h1'>Reggae</div>
             <div className="genre__container" >
-              <OwlCarousel items={7}  
-                className="owl-carousel owl-theme"  
-                loop  
+              <OwlCarousel items={7}
+                className="owl-carousel owl-theme"
+                loop
                 autoWidth
                 nav={true}
-                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                navText={["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]}
                 dots={false}
-              >  
-                  {ReggaeSongs.map((song) => {
-                    return ( 
-                              <div key={`${song.id}`} className="item">
-                                <div className="image__container" >
-                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
-                                      <img src={`${song?.image_url}`} alt='song_image' />
-                                    {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
-                                    </div>
-                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
-                                    </div>
-                                    <div className='song__user--info'>
-                                      {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
-                                    </div>
-                                </div>
-                                <div className='song__info'>
-                                  <div className='user-info-text'>
-                                    <div className="title" >{song?.title}</div>
-                                    <div className="artist">{song?.artist}</div>
-                                  </div>
-                                </div>
-                              </div>
-                            )
-                  })}
-                  </OwlCarousel>
-            </div>      
+              >
+                {ReggaeSongs.map((song) => {
+                  return (
+                    <div key={`${song.id}`} className="item">
+                      <div className="image__container" >
+                        <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
+                          <img src={`${song?.image_url}`} alt='song_image' />
+                          {user ? (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
+                        </div>
+                        <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
+                        </div>
+                        <div className='song__user--info'>
+                          {song?.userProfileURL ? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin} /> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                        </div>
+                      </div>
+                      <div className='song__info'>
+                        <div className='user-info-text'>
+                          <div className="title" >{song?.title}</div>
+                          <div className="artist">{song?.artist}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </OwlCarousel>
+            </div> </> : ''}
         </div>
       <div className="songs__container">
-          {PunkSongs.length > 0 ? <h1>Punk</h1>: ''}
+        {PunkSongs.length > 0 ?
+          <>
+            <div className='h1'>Punk</div>
             <div className="genre__container" >
-              <OwlCarousel items={7}  
-                className="owl-carousel owl-theme"  
-                loop  
+              <OwlCarousel items={7}
+                className="owl-carousel owl-theme"
+                loop
                 autoWidth
                 nav={true}
-                navText={["<div class='nav-btn prev-slide'></div>","<div class='nav-btn next-slide'></div>"]}
+                navText={["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"]}
                 dots={false}
-              >  
-                  {PunkSongs.map((song) => {
-                    return ( 
-                              <div key={`${song.id}`} className="item">
-                                <div className="image__container" >
-                                    <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
-                                      <img src={`${song?.image_url}`} alt='song_image' />
-                                    {user ?  (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
-                                    </div>
-                                    <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
-                                    </div>
-                                    <div className='song__user--info'>
-                                      {song?.userProfileURL? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin}/> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
-                                    </div>
-                                </div>
-                                <div className='song__info'>
-                                  <div className='user-info-text'>
-                                    <div className="title" >{song?.title}</div>
-                                    <div className="artist">{song?.artist}</div>
-                                  </div>
-                                </div>
-                              </div>
-                            )
-                  })}
-                  </OwlCarousel>
-            </div>      
+              >
+                {PunkSongs.map((song) => {
+                  return (
+                    <div key={`${song.id}`} className="item">
+                      <div className="image__container" >
+                        <div className="image1" onClick={user ? (() => onClick2(song.id)) : openModalLogin}>
+                          <img src={`${song?.image_url}`} alt='song_image' />
+                          {user ? (likes?.includes(song.id) ? <button id={`${song.id}`} className='liked' onClick={(e) => handleRemoveLike(e, song?.id)}></button> : <button id={`${song.id}`} className='like' onClick={(e) => handleAddLike(e, song?.id)}></button>) : ''}
+                        </div>
+                        <div id={`${song?.id}`} onClick={user ? ((e) => setCurrentSong(e.target.id)) : openModalLogin} className="image2">
+                        </div>
+                        <div className='song__user--info'>
+                          {song?.userProfileURL ? <img src={`${song?.userProfileURL}`} onClick={user ? (() => onClick(song.id)) : openModalLogin} /> : <div><Avatar className={classes.orange} onClick={user ? (() => onClick(song.id)) : openModalLogin}>{song?.username[0]}</Avatar></div>}
+                        </div>
+                      </div>
+                      <div className='song__info'>
+                        <div className='user-info-text'>
+                          <div className="title" >{song?.title}</div>
+                          <div className="artist">{song?.artist}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </OwlCarousel>
+            </div> </> : ''}
         </div>
         <div>
                         <Modal

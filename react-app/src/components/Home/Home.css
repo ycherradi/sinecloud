@@ -1,6 +1,6 @@
 
 *{
-  max-height: auto;
+  height: fit-content;
 }
 
 .home__page {
@@ -28,7 +28,7 @@
   height: auto;
   margin-top: 40px;
   margin-left: 50px;
-  /* border-radius: 10px; */
+  border-radius: 10px;
 
 }
 
