@@ -63,8 +63,6 @@ const customStyles = {
 };
 
 
-
-
 Modal.setAppElement('#root');
 
 const NavBar = ({ loaded }) => {
@@ -75,6 +73,7 @@ const NavBar = ({ loaded }) => {
     const [search, setSearch] = useState('');
     
     const user = useSelector((state) => state?.session.user);
+    const songs = useSelector((state) => state?.song);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     
@@ -111,10 +110,56 @@ const NavBar = ({ loaded }) => {
     }
     
     const classes = useStyles();
+    
+    const [use, setUse] = useState([]);
 
-    // useEffect(() => {
-    //     dispatch(sessionActions.authenticate())
-    // }, [dispatch])
+    let filter = [];
+
+    const searchBar = () => {
+        window.addEventListener("keyup", (e) => {
+            let searchString = e.target.value.toLowerCase();
+            if (!searchString.length || searchString.length < 3) {
+            } else {
+                filter = Object.values(songs).find((song) => {
+                        return song?.title.toLowerCase().includes(searchString) ||
+                        song?.artist.toLowerCase().includes(searchString);})
+                      
+                return filter !== undefined ? setUse(
+                  <>
+                    {<div className="dropdown__search-bar" id="serverSearch">
+                      <li id="searchText">
+                          <NavLink
+                            id="searchText-anchor"
+                            className="popUp-search__anchor"
+                            to={`/songs/${filter.id}`}
+                          >
+                            {filter.artist}
+                          </NavLink>,
+                      </li>
+                    </div>}
+                </>
+                ) : setUse(<>
+                  {<div className="dropdown__search-bar" id="serverSearch">
+                    <li id="searchText">
+                      <NavLink
+                        id="searchText-anchor"
+                        className="popUp-search__anchor"
+                        to={`/`}
+                      >
+                        {'No Result'}
+                      </NavLink>,
+                      </li>
+                  </div>}
+                </> );
+            };
+        })
+      }
+      
+
+  document.getElementById('searchText-anchor') && document.getElementById('searchText-anchor').addEventListener('click', () => {
+        setUse();
+      })
+
 
     return (
         loaded && 
@@ -134,11 +179,19 @@ const NavBar = ({ loaded }) => {
                     </a>
                 </div>
                 <div className="navbarItem">
+                  <ul>{use}</ul>
                     <input
                         type="text"
-                        placeholder="  Search"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="  Search artist or title"
+                        // value={use}
+                        onChange={(e) => {
+                          let value = e.target.value.length;
+                          if (value < 3) {
+                            setUse();
+                          } else {
+                            setUse(searchBar);
+                          }
+                        }}
                     />
                 </div>
                 <div>

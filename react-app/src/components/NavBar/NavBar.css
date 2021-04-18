@@ -168,3 +168,27 @@ a:hover {
     text-decoration: none;
 }
 
+
+.dropdown__search-bar {
+    background-color: #efefefe7;
+    border-radius: 5px;
+    height: 15px;
+    width: 290px;
+    position: absolute;
+    padding: 10px;
+    margin-top: 15px;
+    list-style-type: none;
+    
+}
+
+/* .popUp-search__anchor {
+    color: #0f0f0f;
+    display: flex;
+    width: 328px;
+
+    justify-content: center;
+    min-height: 20px;
+    text-align: center;
+    padding-top: 10px;
+    padding-left: 20px;
+} */
