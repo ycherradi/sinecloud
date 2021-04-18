@@ -164,7 +164,7 @@ function Songs({ setCurrentSong, loaded}) {
     <div>
       <h1 className="charts">Charts: Top Genres</h1>
       <div className="songs__container">
-            <h1>Rock</h1>
+            <div className='h1'>Rock</div>
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  
@@ -201,7 +201,7 @@ function Songs({ setCurrentSong, loaded}) {
             </div>      
         </div>
       <div className="songs__container">
-          {PopSongs.length > 0 ? <h1>Pop</h1>: ''}
+          {PopSongs.length > 0 ? <div className='h1'>Pop</div>: ''}
             <div className="genre__container" >
               <OwlCarousel items={7}  
                 className="owl-carousel owl-theme"  

@@ -2,23 +2,33 @@
   margin-top: 30px;
   /* padding-bottom: 20px; */
   margin-left: 50px;
+  height: 30px;
 }
-h1{
+
+.h1{
   margin-left: 50px;
+  height:20px;
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 10px;
 }
+
 img {
   width: 200px;
   height: 200px;
+  border-radius: 20px;
 }
 
 .songs__container {
   width: auto;
 }
 
+
 .genre__container {
     width: 1400px;
     margin: auto;
     position: relative;
+    height: 270px;
   }
 
 .owl-carousel .owl-nav{
