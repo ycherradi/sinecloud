@@ -3,7 +3,7 @@
   box-sizing: border-box;
   padding: 20px;
   color: #fff;
-  background-color: #333;
+  /* background-color: #333; */
 }
 
 .UploadModalFormTitleContainer {
@@ -38,7 +38,7 @@
 .UploadModalInputContainer > input {
   font: inherit;
   padding: 5px;
-  border: 1px solid rgb(170, 170, 170);
+  /* border: 1px solid rgb(170, 170, 170); */
   width: 300px;
 }
 
