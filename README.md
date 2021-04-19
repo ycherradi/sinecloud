@@ -194,7 +194,7 @@ Contributions are what make the open source community such an amazing place to b
 * Yassine Cherradi - [LinkedIn](https://www.linkedin.com/in/yassine-cherradi-035784101/) - [GitHub](https://github.com/ycherradi) - [Personal Site](https://ycherradi.github.io/)
 
 
-Project Link: [https://github.com/nkuek/discordance](https://github.com/ycherradi/sinecloud)
+Project Link: [https://github.com/ycherradi/sinecloud](https://github.com/ycherradi/sinecloud)
 
 <!-- ACKNOWLEDGEMENTS -->
 
