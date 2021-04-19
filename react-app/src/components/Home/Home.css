@@ -24,11 +24,12 @@
 } */
 
 .banner > img {
-  width: 1400px;
+  width: auto;
   height: auto;
   margin-top: 40px;
   margin-left: 50px;
   border-radius: 10px;
+
 
 }
 
