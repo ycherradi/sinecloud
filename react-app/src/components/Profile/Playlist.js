@@ -115,7 +115,7 @@ function Playlist({playlist}) {
   const playlistSongs = filteredPlaylists?.map((filteredPlaylist) => {
                         return Object.values(songs).filter((song) => filteredPlaylist.song_id === song.id)})
   
-  console.log(playlistSongs)
+ 
 
 
   const [currentSong, setCurrentSong] = useState(playlistSongs[0][0]);
@@ -172,7 +172,7 @@ function Playlist({playlist}) {
       setPlay(true);
       
       duration = wavesurfer.current.getDuration(`${currentSong?.audio_file}`)
-      console.log(duration)
+      
       
       
       // make sure object stillavailable when file loaded
@@ -186,7 +186,7 @@ function Playlist({playlist}) {
       // https://wavesurfer-js.org/docs/methods.html
       
       currentTime = wavesurfer.current.getCurrentTime(`${currentSong?.audio_file}`)
-      console.log(currentTime)
+   
       
     });
     
@@ -197,7 +197,7 @@ function Playlist({playlist}) {
       // for(let i = 0; i < playlistSongs.length; i++){
       //   setTimeout(() => {
       //     setCurrentSong(playlistSongs[i][0])
-      //   }, 10000)
+      //   }, duration-currentTime)
       // }
       
     });
@@ -230,7 +230,7 @@ function Playlist({playlist}) {
 
 
   const onDelete = (e, commentId) => {
-    console.log(commentId)
+  
     e.preventDefault()
     dispatch(commentActions.deleteExistingComment(commentId))
     // setCommentsChanged(true) 

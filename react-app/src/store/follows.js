@@ -21,13 +21,13 @@ export const fetchUserFollows = (userId) => async (dispatch) => {
         body: JSON.stringify({userId}),
     });
     const userFollows = await response.json();
-    console.log(userFollows)
+    
     return dispatch(findUserFollows(userFollows));
 };
 
 
 export const addFollow = (following_userId, followers_userId) => async (dispatch) => {
-    console.log(following_userId, followers_userId)
+ 
     const response = await fetch('/api/follows/', {
         method: 'POST',
         headers: {

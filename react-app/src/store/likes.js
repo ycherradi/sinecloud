@@ -28,7 +28,7 @@ export const resetUserLikes = () => async (dispatch) => {
 };
 
 export const addLike = (songId, userId) => async (dispatch) => {
-    console.log(songId, userId)
+   
     const response = await fetch('/api/auth/likes/', {
         method: 'POST',
         headers: {
@@ -37,7 +37,7 @@ export const addLike = (songId, userId) => async (dispatch) => {
         body: JSON.stringify({ songId, userId }),
     });
     const userLikes = await response.json();
-    console.log('userLikes', userLikes)
+ 
     return dispatch(findUserLikes(userLikes));
 };
 

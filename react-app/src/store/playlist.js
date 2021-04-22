@@ -11,7 +11,7 @@ const removeUserPlaylists = () => ({
 });
 
 export const fetchUserPlaylists = (userId) => async (dispatch) => {
-  console.log(userId)
+ 
   if (!userId) return;
   const response = await fetch('/api/playlists/', {
     method: 'PUT',
@@ -21,13 +21,13 @@ export const fetchUserPlaylists = (userId) => async (dispatch) => {
     body: JSON.stringify(userId),
   });
   const userPlaylists = await response.json();
-  console.log(userPlaylists)
+
   return dispatch(findUserPlaylists(userPlaylists));
 };
 
 
 export const addPlaylist = (name, userId) => async (dispatch) => {
-  console.log(name, userId)
+
   const response = await fetch('/api/playlists/', {
     method: 'POST',
     headers: {
@@ -36,12 +36,12 @@ export const addPlaylist = (name, userId) => async (dispatch) => {
     body: JSON.stringify({name, userId}),
   });
   const userPlaylists = await response.json();
-  console.log('userPlaylists', userPlaylists)
+
   return dispatch(findUserPlaylists(userPlaylists));
 };
 
 export const addToPlaylist = (name, songId, userId) => async (dispatch) => {
-  console.log(name, songId, userId)
+
   const response = await fetch('/api/playlists/playlist/', {
     method: 'POST',
     headers: {
@@ -50,7 +50,7 @@ export const addToPlaylist = (name, songId, userId) => async (dispatch) => {
     body: JSON.stringify({name, songId, userId }),
   });
   const userPlaylists = await response.json();
-  console.log('userPlaylists', userPlaylists)
+
   return dispatch(findUserPlaylists(userPlaylists));
 };
 

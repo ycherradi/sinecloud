@@ -38,16 +38,16 @@ const SignUpForm = ({
     const user = await dispatch(sessionActions.signup(formData1));
 
     if (password === repeatPassword) {
-      // console.log(user)
+    
       if (!user.errors) {
         
         setImageLoading(false);
         return history.push("/");
         
       } else {
-        console.log(user.errors)
+        
         setErrors(user.errors)
-        // console.log(user.payload.errors)
+     
       }
     }
   };
@@ -85,7 +85,7 @@ const SignUpForm = ({
   // }
 
   const updateImage = (e) => {
-    console.log(e.target.files[0]);
+    
     const file = e.target.files[0];
     setImage(file);
   };

@@ -13,7 +13,7 @@ const PlaylistForm = ({
   const [name, setName] = useState('');
   const history = useHistory();
   const user = useSelector((state) => state?.session.user)
-  console.log(name)
+ 
   const onPlaylist = async (e) => {
     e.preventDefault();
     e.stopPropagation();

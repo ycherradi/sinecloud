@@ -30,7 +30,7 @@ export const addNewComment = (commentFormInput) => async (dispatch) => {
         body: commentFormInput,
     });
     const data = await response.json();
-    console.log(data)
+
     dispatch(addComment(data));
     return data;
 };
@@ -62,7 +62,7 @@ export const updateExistingComment = (commentId) => async (dispatch) => {
         body: commentId,
     });
     const updatedComment = await response.json();
-    console.log('----------------');
+  
     dispatch(editComment(updatedComment));
 };
 

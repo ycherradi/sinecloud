@@ -220,7 +220,7 @@ function UserSongPage() {
   
 
     const onDelete = (e, commentId) => {
-      console.log(commentId)
+    
         e.preventDefault()
         dispatch(commentActions.deleteExistingComment(commentId))
         setDeleted(false)
@@ -402,7 +402,7 @@ function UserSongPage() {
                 <input
                   type="text"
                   name="Comments"
-                  placeholder='Add a public review...'
+                  placeholder='Add a public review then press enter...'
                   onChange={updateComment}
                   value={comment}
                 ></input>

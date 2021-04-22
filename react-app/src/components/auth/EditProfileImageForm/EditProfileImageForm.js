@@ -32,7 +32,6 @@ const EditProfileImageForm = ({ closeModalSignUp }) => {
   };
 
   const updateImage = (e) => {
-    console.log(e.target.files[0]);
     const file = e.target.files[0];
     setImage(file);
   };

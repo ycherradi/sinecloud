@@ -26,21 +26,6 @@ function App() {
         // setLoaded(true);
     }, [dispatch]);
 
-  // useEffect(() => {
-  //   (async() => {
-  //     const user = await authenticate();
-  //     console.log(user)
-  //     if (!user.errors) {
-  //       dispatch(authenticate());
-  //       // setAuthenticated(true);
-  //     }
-  //     setLoaded(true); 
-  //   })();
-  // }, [dispatch]);
-
-  // if (!loaded) {
-  //   return null;
-  // }
 
   return (
     <>

@@ -216,7 +216,7 @@ function SongPage() {
 
 
     const onDelete = (e, commentId) => {
-      console.log(commentId)
+   
         e.preventDefault()
         dispatch(commentActions.deleteExistingComment(commentId))
         // setCommentsChanged(true) 
@@ -425,7 +425,7 @@ function SongPage() {
                 <input
                   type="text"
                   name="Comments"
-                  placeholder='Add a public review...'
+                  placeholder='Add a public review then press enter...'
                   onChange={updateComment}
                   value={comment}
                 ></input>

@@ -57,13 +57,13 @@ export const deleteExistingSong = (songId) => async (dispatch) => {
 
 // Edit existing song
 export const updateExistingSong = (songId) => async (dispatch) => {
-    console.log(songId);
+   
     const response = await fetch('/api/songs/edit/', {
         method: 'PUT',
         body: songId,
     });
     const updatedSong = await response.json();
-    console.log('----------------');
+
     dispatch(editSong(updatedSong));
 };
 

@@ -17,16 +17,16 @@ def user_exists(form, field):
         raise ValidationError("User is already registered.")
 
 
-def username_exists(form, field):
-    print("Checking if username exists",  field.data)
-    username = field.data
-    if not username:
-        raise ValidationError('No username provided')
+def artist_name_exists(form, field):
+    print("Checking if artist name exists",  field.data)
+    artist_name = field.data
+    if not artist_name:
+        raise ValidationError('No artist name provided')
 
-    if User.query.filter(User.username == username).first():
+    if User.query.filter(User.artist_name == artist_name).first():
         raise ValidationError("is already in use.")
 
-    if len(username) < 5 or len(username) > 20:
+    if len(artist_name) < 5 or len(artist_name) > 20:
         raise ValidationError('must be between 5 and 20 characters')
 
 
@@ -43,8 +43,8 @@ def password_matches(form, field):
 
 
 class SignUpForm(FlaskForm):
-    username = StringField('username', validators=[
-        DataRequired(), username_exists])
+    artist_name = StringField('artist_name', validators=[
+        DataRequired(), artist_name_exists])
     email = StringField('email', validators=[DataRequired(), user_exists])
     password = StringField('password', validators=[
         DataRequired(), password_matches])

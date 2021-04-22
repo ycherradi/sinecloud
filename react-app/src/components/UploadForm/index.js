@@ -42,7 +42,7 @@ const UploadForm = ({closeModalUpload}) => {
     formData.append("genre", genre);
 
 
-    console.log(formData);
+   
 
     const song = await dispatch(musicActions.addNewSong(formData));
     closeModalUpload();
@@ -75,17 +75,17 @@ const UploadForm = ({closeModalUpload}) => {
   };
 
   const updateImage = (e) => {
-    console.log(e.target.files[0]);
+    
     const file = e.target.files[0];
     setImage(file);
   };
 
   const updateAudio = (e) => {
-    console.log(e.target.files[0]);
+    
     const file = e.target.files[0];
     setAudio(file);
   };
-  console.log(artist)
+
 
   return (
     <div className="UploadModalWrapper">
