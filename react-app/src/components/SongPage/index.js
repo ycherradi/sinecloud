@@ -148,8 +148,7 @@ function SongPage() {
 
 
 
-  const openPlaylistForm = (event) => {
-    event.stopPropagation()
+  const openPlaylistForm = () => {
     openModalPlaylist()
   }
 
@@ -216,7 +215,7 @@ function SongPage() {
 
 
     const onDelete = (e, commentId) => {
-   
+
         e.preventDefault()
         dispatch(commentActions.deleteExistingComment(commentId))
         // setCommentsChanged(true) 
@@ -275,12 +274,11 @@ function SongPage() {
   }
 
   function openModalPlaylist() {
-    // e.stopPropagation();
     setIsOpenPlaylist(true);
   }
 
-  function closeModalPlaylist() {
-    // e.stopPropagation();
+  function closeModalPlaylist(event) {
+    event.stopPropagation();
     setIsOpenPlaylist(false);
   }
 
@@ -389,7 +387,7 @@ function SongPage() {
                             )
                           })}
                           
-                          <li onClick={openPlaylistForm}>Create Playlist </li>
+                          <li onClick={openPlaylistForm}>Create Playlist</li>
                           </ul>
                         </Menu>
 
@@ -401,10 +399,10 @@ function SongPage() {
                         style={customStyles}
                         contentLabel="Example Modal"
                       >
-                        <PlaylistForm
-                          closeModalPlaylist={closeModalPlaylist}
-                          openModalPlaylist={openModalPlaylist}
-                        />
+                          <PlaylistForm
+                            closeModalPlaylist={closeModalPlaylist}
+                            openModalPlaylist={openModalPlaylist}
+                          />
                       </Modal>
                     </div>
                   </div>
@@ -412,11 +410,6 @@ function SongPage() {
               })}
           </div>
       
-        {/* {selectedSong && <ReactJkMusicPlayer 
-              id='audio-element'
-              {...params}
-                  
-        />} */}
         <div classname='comments__container'>
           <form onSubmit={onSubmit}>
             <div className="CommentsInputContainer">

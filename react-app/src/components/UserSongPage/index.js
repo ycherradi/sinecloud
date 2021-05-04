@@ -134,8 +134,8 @@ function UserSongPage() {
     setIsOpenPlaylist(true);
   }
 
-  function closeModalPlaylist() {
-    // e.stopPropagation();
+  function closeModalPlaylist(event) {
+    event.stopPropagation();
     setIsOpenPlaylist(false);
   }
 
@@ -384,10 +384,10 @@ function UserSongPage() {
                     style={customStyles}
                     contentLabel="Example Modal"
                   >
-                    <PlaylistForm
-                      closeModalPlaylist={closeModalPlaylist}
-                      openModalPlaylist={openModalPlaylist}
-                    />
+                      <PlaylistForm
+                        closeModalPlaylist={closeModalPlaylist}
+                        openModalPlaylist={openModalPlaylist}
+                      />
                   </Modal>
                 </div>
               </div>

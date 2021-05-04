@@ -13,7 +13,7 @@ const PlaylistForm = ({
   const [name, setName] = useState('');
   const history = useHistory();
   const user = useSelector((state) => state?.session.user)
- 
+
   const onPlaylist = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -48,7 +48,7 @@ const PlaylistForm = ({
               placeholder="Playlist Name"
               value={name}
               onChange={updateName}
-              require
+              required
             />
           </div>
           <div className="PlaylistModalButtonContainer">
