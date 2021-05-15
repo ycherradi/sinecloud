@@ -42,7 +42,6 @@ const UploadForm = ({closeModalUpload}) => {
     formData.append("genre", genre);
 
 
-   
 
     const song = await dispatch(musicActions.addNewSong(formData));
     closeModalUpload();
@@ -143,12 +142,12 @@ const UploadForm = ({closeModalUpload}) => {
             <select
               type="text"
               name="Genre"
-              onChange={(e) => setGenre(e.target.value)}
+              onChange={updateGenre}
               value={genre}
             >
-            {genres?.map((el) => {
-              return <option key={el?.name}>{el?.name}</option>
-            })}
+              {genres?.map((el) => {
+                return <option key={el?.name}>{el?.name}</option>
+              })}
             </select>
           </div>
           <div className="UploadModalInputContainer">
