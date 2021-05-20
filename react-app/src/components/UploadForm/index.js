@@ -182,3 +182,6 @@ const UploadForm = ({closeModalUpload}) => {
 };
 
 export default UploadForm;
+
+
+// fix upload form bubbing up affecting the player
